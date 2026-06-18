@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photographers</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vendors.css">
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><img src="images/image.png" alt="Planora" class="logo-image"></div>
+        <div class="logo-text"><span class="logo-highlight">Planora</span></div>
+      </a>
+      <nav class="nav-links-pc">
+        <a href="index.html">Home</a>
+        <a href="index.html#categories">Venues</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-cart" href="cart.html">View Cart</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="title">📸 Photographers</h1>
+    <div class="container">
+      <div class="cards" id="cards"></div>
+    </div>
+  </main>
+
+  <script src="js/cart.js"></script>
+  <script>
+    
+
+const photographers=[
+
+{
+name:"Star Studio Photographer",
+address:"Koteshwar Road, Gwalior",
+price:"Custom",
+type:"ALL Kind",
+img:"https://images.unsplash.com/photo-1516035069371-29a1b244cc32"
+},
+
+{
+name:"Bhanu Jain Production",
+address:"Daulat Ganj, Gwalior",
+price:"Custom",
+type:"ALL Kind",
+img:"https://images.unsplash.com/photo-1492691527719-9d1e07e534b4"
+},
+
+{
+name:"Chopra Studio",
+address:"Maharaj Khagsi Rd Bada, Gwalior",
+price:"Custom",
+type:"ALL Kind",
+img:"https://images.unsplash.com/photo-1520390138845-fd2d229dd553"
+},
+
+{
+name:"Majhi Photography",
+address:"Tansen Rd Railway Colony, Gwalior",
+price:"Custom",
+type:"ALL Kind",
+img:"https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0"
+},
+
+{
+name:"Venus Photography",
+address:"Krishna Mall, Roxy Talkies, Gwalior",
+price:"Custom",
+type:"ALL Kind",
+img:"https://images.unsplash.com/photo-1511285560929-80b456fea0bc"
+},
+
+{
+name:"Brother's Production",
+address:"Kailash Talkies Rd, Near Pardhi Mohalla, Gwalior",
+price:"Custom",
+type:"ALL Kind",
+img:"https://images.unsplash.com/photo-1493863641943-9b68992a8d07"
+},
+
+{
+name:"Kumar Studio",
+address:"Madhuvan Colony, Mayur Market, Thatipur, Gwalior",
+price:"Custom",
+type:"ALL Kind",
+img:"https://images.unsplash.com/photo-1512790182412-b19e6d62bc39"
+},
+
+{
+name:"Anubhav Studio",
+address:"Gandhi Rd, Baradari, Morar, Gwalior",
+price:"Custom",
+type:"ALL Kind",
+img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+},
+
+{
+name:"Color Studio",
+address:"Petrol Pump, Mohan Nagar Colony, Thatipur, Gwalior",
+price:"Custom",
+type:"ALL Kind",
+img:"https://images.unsplash.com/photo-1452587925148-ce544e77e70d"
+}
+
+];
+
+    const box = document.getElementById('cards');
+    function render() {
+      box.innerHTML = '';
+      photographers.forEach(c => {
+        const div = document.createElement('div');
+        div.className = c.type === 'Premium' ? 'card premium' : 'card';
+        div.innerHTML = `
+          <div class="card-media"><img src="${c.img}" alt="${c.name}"></div>
+          <div class="card-body">
+            <h3>${c.name}</h3>
+            <p class="muted">📍 ${c.address}</p>
+            <p class="tag">⭐ ${c.type}</p>
+            <div class="card-actions">
+              <button class="btn btn-add">Add to Cart</button>
+              <button class="btn btn-book">Book Now</button>
+            </div>
+          </div>`;
+
+        div.querySelector('.btn-add').addEventListener('click', () => { addServiceToCart({ vendor: c.name, category: 'Photography', price: c.price, displayPrice: c.price }); showCartMessage(c.name); });
+        div.querySelector('.btn-book').addEventListener('click', () => { addServiceToCart({ vendor: c.name, category: 'Photography', price: c.price, displayPrice: c.price }); window.location.href = 'booking.html'; });
+        box.appendChild(div);
+      });
+    }
+
+    render();
+    function showCartMessage(name){ const old = document.querySelector('.cart-toast'); if(old) old.remove(); const msg = document.createElement('div'); msg.className='cart-toast'; msg.innerHTML = `✅ <b>${name}</b><br>Added to cart &nbsp; <a href="cart.html">View Cart →</a>`; document.body.appendChild(msg); setTimeout(()=>msg.remove(),3500);} 
+  </script>
+
+</body>
+</html>
+    </html>

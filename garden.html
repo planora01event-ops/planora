@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marriage Garden in Gwalior</title>
+    <meta name="description" content=" A marriage garden in Gwalior suitable for weddings and large events.">
+    <link rel="stylesheet" href="garden.css">
+</head>
+
+<body>
+
+    <!-- ================= TOP GARDENS ================= -->
+
+    <header>
+        <h1>Top Marriage Gardens And Resorts in Gwalior</h1>
+    </header>
+
+    <!-- 🔍 Search Box Start -->
+
+    <div class="search-container">
+
+        <input type="text" id="hotelSearch" placeholder="🔍 Search garden by name or location..."
+            onkeyup="searchHotels()">
+
+    </div>
+
+    <!-- 🔍 Search Box End -->
+
+    <script>
+
+        function searchHotels() {
+
+            let input = document
+                .getElementById("hotelSearch")
+                .value
+                .toLowerCase()
+                .trim();
+
+            let words = input.split(" ");
+
+            // sab gardens select karega
+            let gardens = document.querySelectorAll("h1");
+
+            for (let i = 0; i < gardens.length; i++) {
+
+                let gardenName =
+                    gardens[i].innerText.toLowerCase();
+
+                // location paragraph find karega
+                let locationPara =
+                    gardens[i].parentElement
+                        .querySelector("p");
+
+                let locationText = "";
+
+                if (locationPara) {
+
+                    locationText =
+                        locationPara.innerText.toLowerCase();
+
+                }
+
+                let fullText =
+                    gardenName + " " + locationText;
+
+                let match = true;
+
+                for (let j = 0; j < words.length; j++) {
+
+                    if (!fullText.includes(words[j])) {
+
+                        match = false;
+                        break;
+
+                    }
+
+                }
+
+                let section =
+                    gardens[i].parentElement;
+
+                section.style.display =
+                    match ? "block" : "none";
+
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+        function selectVenue(venueName) {
+
+            console.log("Saving Venue:", venueName);
+
+            // Save venue for any booking flow if needed
+            localStorage.setItem("selectedVenue", venueName);
+
+            // Add venue to cart
+            addServiceToCart({ vendor: venueName, category: 'Gardens', price: 0, displayPrice: venueName });
+            showToast(`Added to cart: ${venueName}`);
+            showConfirmationModal(venueName);
+        }
+
+        function showConfirmationModal(venueName) {
+            const modal = document.getElementById('confirmationModal');
+            if (!modal) return;
+            const messageEl = document.getElementById('confirmationText');
+            if (messageEl) {
+                messageEl.textContent = `${venueName} has been added to your cart.`;
+            }
+            modal.style.display = 'block';
+        }
+
+        function closeConfirmationModal() {
+            const modal = document.getElementById('confirmationModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('confirmationModal');
+            if (event.target === modal) {
+                closeConfirmationModal();
+            }
+        };
+
+    </script>
+
+    <style>
+        /* 🔍 Search Container */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 30px;
+        }
+
+        #searchGarden {
+            padding: 14px 25px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            width: 100%;
+            max-width: 500px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #searchGarden:focus {
+            border-color: #ff6b6b;
+        }
+
+        /* Confirmation Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.75);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            margin: auto;
+            padding: 25px 30px;
+            border-radius: 18px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            position: relative;
+        }
+
+        .confirmation-message {
+            font-size: 1rem;
+            color: #333;
+            margin: 18px 0 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .modal-actions button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .modal-actions .btn-continue {
+            background: #6c757d;
+            color: white;
+        }
+
+        .modal-actions .btn-continue:hover {
+            background: #5a6268;
+        }
+
+        .modal-actions .btn-cart {
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            color: white;
+        }
+
+        .modal-actions .btn-cart:hover {
+            background: linear-gradient(135deg, #ff8787, #ff6b6b);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            font-size: 26px;
+            color: #444;
+            cursor: pointer;
+        }
+
+        /* 🔍 Search Container */
+
+        .search-container {
+            text-align: center;
+            margin: 25px 0;
+            padding: 0 15px;
+        }
+
+        /* 🔍 Search Input Box */
+        #hotelSearch {
+            width: 100%;
+            max-width: 650px;
+            padding: 14px 22px;
+
+            font-size: 16px;
+            font-weight: 500;
+
+            border: 2px solid #ddd;
+            border-radius: 30px;
+
+            outline: none;
+
+            transition: all 0.3s ease;
+
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 🔍 Focus Effect */
+        #hotelSearch:focus {
+            border-color: #ff5722;
+            /* Brand color */
+            box-shadow: 0 4px 12px rgba(255, 87, 34, 0.25);
+        }
+
+        /* 🔍 Placeholder Styling */
+        #hotelSearch::placeholder {
+            color: #888;
+            font-weight: 400;
+        }
+
+        /* 📱 Mobile Responsive */
+        @media (max-width: 600px) {
+
+            #hotelSearch {
+                width: 100%;
+                font-size: 15px;
+                padding: 12px 18px;
+            }
+
+        }
+    </style>
+
+    <!-- ===== Garden 1 ===== -->
+
+    <div class="garden">
+
+        <h1>Riwaz Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/Riwaz1.png">
+        <img src="final image/Riwaz2.png">
+        <img src="final image/Riwaz3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Shivpuri link road, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.4/5</p>
+        <p><strong>Capacity:</strong> 300 – 500 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Banquet</p>
+        <p><strong>Parking:</strong> Available (25+ Vehicles)</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Riwaz+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Riwaz Garden')">
+
+                💬 Book Now
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 2 ===== -->
+
+    <div class="garden">
+
+        <h1>Shalimar garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/shalimar1.png">
+        <img src="final image/shalimar2.png">
+        <img src="final image/shalimar3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Thathipur Morar Area, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.1/5</p>
+        <p><strong>Capacity:</strong> 100 – 900 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Hall</p>
+        <p><strong>Parking:</strong> Limited Parking</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Shalimar+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Shalimar Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 3 ===== -->
+
+    <div class="garden">
+
+        <h1>Resham Tara</h1>
+
+        <h3>Images</h3>
+        <img src="final image/reshamtara 1.png">
+        <img src="final image/reshamtara 2.png">
+        <img src="final image/reshamtara 3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Sun valley behind New Collectorate city center, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.3/5</p>
+        <p><strong>Capacity:</strong> 300 – 800 Guests</p>
+        <p><strong>Venue Type:</strong> Banquet + Resort</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Resham+Tara+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Resham Tara')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 4 ===== -->
+
+    <div class="garden">
+
+        <h1>Mannat palace</h1>
+
+        <h3>Images</h3>
+        <img src="final image/mannat1.png">
+        <img src="final image/mannat2.png">
+        <img src="final image/mannat3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> New city center sirol main road, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.7/5</p>
+        <p><strong>Capacity:</strong> 400 – 1200 Guests</p>
+        <p><strong>Venue Type:</strong> Resort + Lawn + Banquet</p>
+        <p><strong>Parking:</strong> Spacious Parking</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Mannat+Palace+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Mannat Palace')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 5 ===== -->
+
+    <div class="garden">
+
+        <h1>Shri Achalnath</h1>
+
+        <h3>Images</h3>
+        <img src="final image/shriachalnath1.png">
+        <img src="final image/shriachalnath2.png">
+        <img src="final image/shriachalnath3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Chetakpuri choraha, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 200 – 600 Guests</p>
+        <p><strong>Venue Type:</strong> Open Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Shri+Achalnath+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Shri Achalnath')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- ===== Garden 6 ===== -->
+
+    <div class="garden">
+
+        <h1>The Rangmahal</h1>
+
+        <h3>Images</h3>
+        <img src="final image/rangmahalgarden1.png">
+        <img src="final image/rangmahalgarden2.png">
+        <img src="final image/rangmahalgarden3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Basant vihar colony city center, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.4/5</p>
+        <p><strong>Capacity:</strong> 300 – 900 Guests</p>
+        <p><strong>Venue Type:</strong> Garden + Covered Area</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=The+Rangmahal+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('The Rangmahal')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 7 ===== -->
+
+    <div class="garden">
+
+        <h1>The Koteshwar palace</h1>
+
+        <h3>Images</h3>
+        <img src="final image/Koteshwar1.png">
+        <img src="final image/Koteshwar2.png">
+        <img src="final image/Koteshwar3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Koteshwar chouraha, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.3/5</p>
+        <p><strong>Capacity:</strong> 400 – 1200 Guests</p>
+        <p><strong>Venue Type:</strong> Palace + Lawn + Resort</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=The+Koteshwar+palace+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('The Koteshwar Palace')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 8 ===== -->
+
+    <div class="garden">
+
+        <h1>Sunshine</h1>
+
+        <h3>Images</h3>
+        <img src="final image/sunshinemarriage1.png">
+        <img src="final image/sunshinemarriage2.png">
+        <img src="final image/sunshinemarriage3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> New collectorate Road, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.2/5</p>
+        <p><strong>Capacity:</strong> 200 – 700 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Sunshine+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Sunshine Garden')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 9 ===== -->
+
+    <div class="garden">
+
+        <h1>The Rajbagh</h1>
+
+        <h3>Images</h3>
+        <img src="final image/rajbagmarriage1.png">
+        <img src="final image/rajbagmarriage2.png">
+        <img src="final image/rajbagmarriage3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Thathipur Morar, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.4/5</p>
+        <p><strong>Capacity:</strong> 300 – 1000 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Banquet</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=The+Rajbagh+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('The Rajbagh')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 10 ===== -->
+
+    <div class="garden">
+
+        <h1>Jalsa</h1>
+
+        <h3>Images</h3>
+        <img src="final image/jalsa1.png">
+        <img src="final image/jalsa2.png">
+        <img src="final image/jalsa3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Mela Ground Morar Area, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 3.6/5</p>
+        <p><strong>Capacity:</strong> 300 – 800 Guests</p>
+        <p><strong>Venue Type:</strong> Hotel + Banquet</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Jalsa+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Jalsa Garden')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ===== Garden 11 ===== -->
+
+    <div class="garden">
+
+        <h1>Golden Lotus</h1>
+
+        <h3>Images</h3>
+        <img src="final image/royal1.png">
+        <img src="final image/royal2.png">
+        <img src="final image/royal3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Sirol Road, Gwalior, Madhya Pradesh
+        </p>
+        <p><strong>Rating:</strong> 4.2/5</p>
+        <p><strong>Capacity:</strong> 250 – 700 Guests</p>
+        <p><strong>Venue Type:</strong> Banquet + Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Golden+Lotus+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Golden Lotus Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 12 ===== -->
+
+    <div class="garden">
+
+        <h1>Venus Banquet</h1>
+
+        <h3>Images</h3>
+        <img src="final image/venus1.png">
+        <img src="final image/venus2.png">
+        <img src="final image/venus3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Vicky factory Jhansi road, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.3/5</p>
+        <p><strong>Capacity:</strong> 200 – 600 Guests</p>
+        <p><strong>Venue Type:</strong> Banquet Hall</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=venus+banquet+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Venus Banquet')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 13 ===== -->
+
+    <div class="garden">
+
+        <h1>Royal Sundram</h1>
+
+        <h3>Images</h3>
+        <img src="final image/royalsundram1.png">
+        <img src="final image/royalsundram2.png">
+        <img src="final image/royalsundram3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Sirol Main road, City center, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.4/5</p>
+        <p><strong>Capacity:</strong> 300 – 900 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Banquet</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=royal+sundaram+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Royal Sundram')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 14 ===== -->
+
+    <div class="garden">
+
+        <h1>Sangam vatika</h1>
+
+        <h3>Images</h3>
+        <img src="final image/sangamvatika1.png">
+        <img src="final image/sangamvatika2.png">
+        <img src="final image/sangamvatika3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Madhav Nagar Lashkar, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.3/5</p>
+        <p><strong>Capacity:</strong> 300 – 800 Guests</p>
+        <p><strong>Venue Type:</strong> Garden + Open Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=sangam+vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Sangam Vatika')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 15 ===== -->
+
+    <div class="garden">
+
+        <h1>Manthan Banquet hall</h1>
+
+        <h3>Images</h3>
+        <img src="final image/manthan1.png">
+        <img src="final image/manthan2.png">
+        <img src="final image/manthan3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> New Collectorate City center, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.1/5</p>
+        <p><strong>Capacity:</strong> 150 – 500 Guests</p>
+        <p><strong>Venue Type:</strong> Banquet Hall</p>
+        <p><strong>Parking:</strong> Limited Parking</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=manthan+banquet+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Manthan Banquet Hall')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ===== Garden 16 ===== -->
+
+    <div class="garden">
+
+        <h1>The Maharaja Grand</h1>
+
+        <h3>Images</h3>
+        <img src="final image/maharajagrand1.png">
+        <img src="final image/maharajagrand2.png">
+        <img src="final image/maharajagrand3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Chetakpuri, Lashkar, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.5/5</p>
+        <p><strong>Capacity:</strong> 400 – 1200 Guests</p>
+        <p><strong>Venue Type:</strong> Luxury Banquet + Lawn</p>
+        <p><strong>Parking:</strong> Spacious Parking</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=the+maharaja+grand+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('The Maharaja Grand')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 17 ===== -->
+
+    <div class="garden">
+
+        <h1>Manglam</h1>
+
+        <h3>Images</h3>
+        <img src="final image/mangalam1.png">
+        <img src="final image/mangalam2.png">
+        <img src="final image/mangalam3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Balwant Nagar, Gandhi road, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.2/5</p>
+        <p><strong>Capacity:</strong> 250 – 750 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=manglam+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Manglam Garden')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 18 ===== -->
+
+    <div class="garden">
+
+        <h1>Indralok</h1>
+
+        <h3>Images</h3>
+        <img src="final image/indralok1.png">
+        <img src="final image/indralok2.png">
+        <img src="final image/indralok3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Gudi guda ka naka, Lashkar, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.1/5</p>
+        <p><strong>Capacity:</strong> 200 – 650 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Covered Area</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=indralok+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Indralok Garden')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 19 ===== -->
+
+    <div class="garden">
+
+        <h1>Ram vatika</h1>
+
+        <h3>Images</h3>
+        <img src="final image/ram1.png">
+        <img src="final image/ram2.png">
+        <img src="final image/ram3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Kailash Nagar, Govindpuri, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 200 – 600 Guests</p>
+        <p><strong>Venue Type:</strong> Open Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=ram+vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Ram Vatika')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 20 ===== -->
+
+    <div class="garden">
+
+        <h1>Bandhan</h1>
+
+        <h3>Images</h3>
+        <img src="final image/bandhan1.png">
+        <img src="final image/bandhan2.png">
+        <img src="final image/bandhan3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Maharana Pratap Nagar, Lashkar, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.2/5</p>
+        <p><strong>Capacity:</strong> 250 – 700 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Banquet</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=bandhan+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Bandhan Garden')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ===== Garden 21 ===== -->
+
+    <div class="garden">
+
+        <h1>Mathura Marriage Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/mathura1.png">
+        <img src="final image/mathura2.png">
+        <img src="final image/mathura3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Girwai naka, AB road, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 4.1/5</p>
+        <p><strong>Capacity:</strong> 300 – 600 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Banquet</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Mathura+Marriage+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Mathura Marriage Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 22 ===== -->
+
+    <div class="garden">
+
+        <h1>The Royal Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/royal1.png">
+        <img src="final image/royal2.png">
+        <img src="final image/royal3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> SLP Road, Raghavpuram, Morar, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 3.6/5</p>
+        <p><strong>Capacity:</strong> 300 – 800 Guests</p>
+        <p><strong>Venue Type:</strong> Premium Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=The+Royal+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('The Royal Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 23 ===== -->
+
+    <div class="garden">
+
+        <h1>Utasv Vatika</h1>
+
+        <h3>Images</h3>
+        <img src="final image/utsav1.jpg">
+        <img src="final image/utsav2.jpg">
+        <img src="final image/utsav3.jpg">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Moti Mahal RD, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 4.1/5</p>
+        <p><strong>Capacity:</strong> 400 – 1200 Guests</p>
+        <p><strong>Venue Type:</strong> Garden + Open Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Utasv+Vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Utasv Vatika')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 24 ===== -->
+
+    <div class="garden">
+
+        <h1>Silver Oak Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/silver1.png">
+        <img src="final image/silver2.png">
+        <img src="final image/silver3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Vivekanand Nagar, Thathipur, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 3.5/5</p>
+        <p><strong>Capacity:</strong> 300 – 900 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Banquet</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Silver+Oak+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Silver Oak Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 25 ===== -->
+
+    <div class="garden">
+
+        <h1>Sanskar Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/sanskar1.jpg">
+        <img src="final image/sanskar2.jpg">
+        <img src="final image/sanskar3.jpg">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Vijay Nagar, Chetakpuri, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 3.9/5</p>
+        <p><strong>Capacity:</strong> 400 – 1000 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Sanskar+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Sanskar Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ===== Garden 26 ===== -->
+
+    <div class="garden">
+
+        <h1>Golden Lotus</h1>
+
+        <h3>Images</h3>
+        <img src="final image/goldenlotus1.png">
+        <img src="final image/goldenlotus2.png">
+        <img src="final image/goldenlotus3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Sirol Road, Gwalior, Madhya Pradesh
+        </p>
+
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <p><strong>Venue Type:</strong> Open Lawn</p>
+        <p><strong>Parking:</strong> Available (100+ Vehicles)</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Golden+Lotus+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Golden Lotus')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 27 ===== -->
+
+    <div class="garden">
+
+        <h1>Parinaya Vatika</h1>
+
+        <h3>Images</h3>
+        <img src="final image/parinaya1.png">
+        <img src="final image/parinaya2.png">
+        <img src="final image/parinaya3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Mahal Road, near Achleshwar Mandir, Lashkar, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 3.1/5</p>
+        <p><strong>Capacity:</strong> 200 – 600 Guests</p>
+        <p><strong>Venue Type:</strong> Wedding Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Parinaya+Vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Parinaya Vatika')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 28 ===== -->
+
+    <div class="garden">
+
+        <h1>Jalsa Marriage Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/jalsa1.png">
+        <img src="final image/jalsa2.png">
+        <img src="final image/jalsa3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Mela Ground, Racecourse Road, Thatipur, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 4.2/5</p>
+        <p><strong>Capacity:</strong> 500 – 1200 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Event Space</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Jalsa+Marriage+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Jalsa Marriage Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 29 ===== -->
+
+    <div class="garden">
+
+        <h1>Shehnai Vatika</h1>
+
+        <h3>Images</h3>
+        <img src="final image/shehnai1.png">
+        <img src="final image/shehnai2.png">
+        <img src="final image/shehnai3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Near RTO Office, Padav/Lashkar area, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 4.6/5</p>
+        <p><strong>Capacity:</strong>300 – 800 Guests</p>
+        <p><strong>Venue Type:</strong> Open Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Shehnai+Vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+            <button class="book-btn" onclick="selectVenue('Shehnai Vatika')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===== Garden 30 ===== -->
+
+    <div class="garden">
+
+        <h1>Balaji Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/balaji1.png">
+        <img src="final image/balaji2.png">
+        <img src="final image/balaji3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Near University & Govindpuri Tiraha, Gandhi Road, Thatipur, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 3.7/5</p>
+        <p><strong>Capacity:</strong> 300 – 800 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Balaji+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Balaji Garden')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+    <div class="garden">
+
+        <h1>Shikha Vatika</h1>
+
+        <h3>Images</h3>
+        <img src="final image/shikha1.png">
+        <img src="final image/shikha2.png">
+        <img src="final image/shikha3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Madhav Ganj, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 4.0/5</p>
+        <p><strong>Capacity:</strong> 400 – 1000 Guests</p>
+        <p><strong>Venue Type:</strong> Garden + Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Shikha+Vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Shikha Vatika')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="garden">
+
+        <h1>Goyal Vatika</h1>
+
+        <h3>Images</h3>
+        <img src="final image/goyal1.png">
+        <img src="final image/goyal2.png">
+        <img src="final image/goyal3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Sirol Link Rd, Pawansut Colony, Morar, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 4.1/5</p>
+        <p><strong>Capacity:</strong> 200 – 600 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Banquet</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Goyal+Vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Goyal Vatika')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="garden">
+
+        <h1>Shyam Vatika</h1>
+
+        <h3>Images</h3>
+        <img src="final image/shyam1.png">
+        <img src="final image/shyam2.png">
+        <img src="final image/shyam3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> CIMCO Tiraha, Birlanagar, near the Railway Bridge, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 3.9/5</p>
+        <p><strong>Capacity:</strong> 300 – 800 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Shyam+Vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Shyam Vatika')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="garden">
+
+        <h1>Grand Park Marriage Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/grandpark1.png">
+        <img src="final image/grandpark2.png">
+        <img src="final image/grandpark3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Mela Ground, Thatipur, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 4.3/5</p>
+        <p><strong>Capacity:</strong> 500 – 1500 Guests</p>
+        <p><strong>Venue Type:</strong> Premium Lawn + Banquet</p>
+        <p><strong>Parking:</strong> Spacious Parking</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Grand+Park+Marriage+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Grand Park Marriage Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Maa Kali Vatika</h1>
+
+        <h3>Images</h3>
+        <img src="final image/maakali1.png">
+        <img src="final image/maakali2.png">
+        <img src="final image/maakali3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Near Kali Mata Mandir, Koteshwar Road, Hazira Chowk, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 3.8/5</p>
+        <p><strong>Capacity:</strong> 250 – 700 Guests</p>
+        <p><strong>Venue Type:</strong> Open Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Maa+Kali+Vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Maa Kali Vatika')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Toran Vatika</h1>
+
+        <h3>Images</h3>
+        <img src="final image/toran1.png">
+        <img src="final image/toran2.png">
+        <img src="final image/toran3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Near Chetak Puri Gate, Maharana Pratap Nagar, Lashkar, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 4.0/5</p>
+        <p><strong>Capacity:</strong> 400 – 1000 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Event Space</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=toran+vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Toran Vatika')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Kisan Mangalam Vatika</h1>
+
+        <h3>Images</h3>
+        <img src="final image/kisan1.png">
+        <img src="final image/kisan2.png">
+        <img src="final image/kisan3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Girwai, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 3.9/5</p>
+        <p><strong>Capacity:</strong> 200 – 600 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=kisan+mangalam+vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Kisan Mangalam Vatika')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Nirmal Vatika Marriage Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/nirmal1.png">
+        <img src="final image/nirmal2.png">
+        <img src="final image/nirmal3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Koteshwar Rd, Opposite Koteshwar Mandir, Koteshwar Colony, Fort View Colony,
+            Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 4.1/5</p>
+        <p><strong>Capacity:</strong> 300 – 900 Guests</p>
+        <p><strong>Venue Type:</strong> Garden + Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Nirmal+Vatika+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Nirmal Vatika Marriage Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="garden">
+
+        <h1>Aradhna Marriage Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/aradhna1.png">
+        <img src="final image/aradhna2.png">
+        <img src="final image/aradhna3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> 6 Number Chauraha, Kalpana Nagar, Raghavpuram, Morar, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 4.0/5</p>
+        <p><strong>Capacity:</strong> 250 – 700 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Banquet</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Aradhna+Marriage+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Aradhna Marriage Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="garden">
+
+        <h1>Galav Marriage Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/galav1.png">
+        <img src="final image/galav2.png">
+        <img src="final image/galav3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> 656M+GXR, Raksha Vihar, Lashkar, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 4.1/5</p>
+        <p><strong>Capacity:</strong> 400 – 1200 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Galav+Marriage+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Galav Marriage Garden')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+
+    <div class="garden">
+
+        <h1>Chandwari Marriage Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/chandwari1.png">
+        <img src="final image/chandwari2.png">
+        <img src="final image/chandwari3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> New Vijay Nagar, Amkhoh, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> ⭐ 3.9/5</p>
+        <p><strong>Capacity:</strong> 300 – 800 Guests</p>
+        <p><strong>Venue Type:</strong> Open Lawn</p>
+        <p><strong>Parking:</strong> Available</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Chandwari+Marriage+Garden+Gwalior" target="_blank">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Chandwari Marriage Garden')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Bajarang Marriage Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/bajarang1.png">
+        <img src="final image/bajarang2.png">
+        <img src="final image/bajarang3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Near Girraj Ji Maharaj Mandir, Sheel Nagar, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> 3.9/5</p>
+        <p><strong>Capacity:</strong> 300 – 800 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Available (70+ Vehicles)</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Bajarang+Marriage+Garden+Gwalior">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Bajarang Marriage Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Sanmati Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/sanmati1.png">
+        <img src="final image/sanmati2.png">
+        <img src="final image/sanmati3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Hospital Rd, Lalitpur Colony, Lashkar, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> 3.7/5</p>
+        <p><strong>Capacity:</strong> 250 – 700 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Limited (50–80 Vehicles)</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Sanmati+Garden+Gwalior">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Sanmati Garden')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Shitla Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/shitla1.png">
+        <img src="final image/shitla2.png">
+        <img src="final image/shitla3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Hurawali Rd, near DIBPL Company, Block A, Morar Cantt., Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> 3.8/5</p>
+        <p><strong>Capacity:</strong> 300 – 900 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Covered Area</p>
+        <p><strong>Parking:</strong> Available (80+ Vehicles)</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Shitla+Garden+Gwalior">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Shitla Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Krishnayan Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/krishnayan1.png">
+        <img src="final image/krishnayan2.png">
+        <img src="final image/krishnayan3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Kiddy's Corner Public School, University Rd, Near Kids Silver State Road,
+            Thatipur, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 400 – 1000 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn + Hall</p>
+        <p><strong>Parking:</strong> Available (100+ Vehicles)</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=krishnayan+Gwalior">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Krishnayan Garden')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Sona Marriage Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/sona1.png">
+        <img src="final image/sona2.png">
+        <img src="final image/sona3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Ladheli, Near Power House, Sagartal Rd, Ranipura, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> 3.6/5</p>
+        <p><strong>Capacity:</strong> 300 – 800 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Limited (50–70 Vehicles)</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Sona+Marriage+Garden+Gwalior">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Sona Marriage Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Madhav Mangalam Palace</h1>
+
+        <h3>Images</h3>
+        <img src="final image/madhavmangalam1.png">
+        <img src="final image/madhavmangalam2.png">
+        <img src="final image/madhavmangalam3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Usha Kiran Palace, Near, Nadi Gate 2 Rd, Jayendraganj, Lashkar, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> 4.2/5</p>
+        <p><strong>Capacity:</strong> 500 – 1200 Guests</p>
+        <p><strong>Venue Type:</strong> Banquet Hall + Lawn</p>
+        <p><strong>Parking:</strong> Available (120+ Vehicles)</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Madhav+Mangalam+Palace+Gwalior">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Madhav Mangalam Palace')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Suncity Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/suncity1.png">
+        <img src="final image/suncity2.png">
+        <img src="final image/suncity3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Racecourse Road, near Mela Ground, Thatipur, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> 3.9/5</p>
+        <p><strong>Capacity:</strong> 300 – 900 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Available (80+ Vehicles)</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Suncity+Garden+Gwalior">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Suncity Garden')">
+
+                💬 Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="garden">
+
+        <h1>Sarkar Marriage Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/sarkar1.png">
+        <img src="final image/sarkar2.png">
+        <img src="final image/sarkar3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> Bhind Rd, near IATS School, Aditya Puram, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> 3.5/5</p>
+        <p><strong>Capacity:</strong> 200 – 600 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Limited (40–60 Vehicles)</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=Sarkar+Marriage+Garden+Gwalior">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Sarkar Marriage Garden')">
+
+                💬 Book Now
+
+            </button>
+        </div>
+
+    </div>
+    <div class="garden">
+
+        <h1>Yadav Marriage Garden</h1>
+
+        <h3>Images</h3>
+        <img src="final image/yadav1.png">
+        <img src="final image/yadav2.png">
+        <img src="final image/yadav3.png">
+
+        <h2>Venue Details</h2>
+
+        <p class="location">
+            <strong>Location:</strong> R. J. Puram, Gwalior
+        </p>
+
+        <p><strong>Rating:</strong> 3.8/5</p>
+        <p><strong>Capacity:</strong> 300 – 800 Guests</p>
+        <p><strong>Venue Type:</strong> Lawn</p>
+        <p><strong>Parking:</strong> Available (70+ Vehicles)</p>
+        <div class="garden-buttons">
+
+            <a href="https://maps.google.com/?q=yadav+marriage+garden+Gwalior">
+                <button class="view-btn">📍 View Location</button>
+            </a>
+
+            <button class="book-btn" onclick="selectVenue('Yadav Marriage Garden')">
+
+                💬 Book Now
+
+            </button>`
+
+        </div>
+
+    </div>
+
+
+
+</body>
+
+<div id="confirmationModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeConfirmationModal()">&times;</span>
+        <h2>Added to Cart</h2>
+        <p id="confirmationText" class="confirmation-message">The selected garden has been added to your cart.</p>
+        <div class="modal-actions">
+            <button class="btn-continue" onclick="closeConfirmationModal()">Continue</button>
+            <button class="btn-cart" onclick="window.location.href='cart.html'">Go to Cart</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/cart.js"></script>
+</html>

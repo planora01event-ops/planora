@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Festival Events | Planora Gwalior</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="navbar-content">
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="images/image.png" alt="Planora Logo" class="logo-image">
+            </div>
+            <div class="logo-text">
+                <span class="logo-highlight">Planora</span>
+            </div>
+        </a>
+        <nav class="nav-links-pc">
+            <a href="index.html">Home</a>
+            <a href="#vendors">Vendors</a>
+            <a href="#services">Why Planora</a>
+            <a href="#booking">Book</a>
+        </nav>
+        <div class="lang-pc">
+            <button class="lang-btn active" id="btn-en-pc" onclick="translatePage('en')">EN</button>
+            <button class="lang-btn" id="btn-hi-pc" onclick="translatePage('hi')">HI</button>
+        </div>
+    </div>
+    <div class="side-nav" id="sideNav">
+        <div class="side-nav-header">
+            <span>Menu</span>
+            <span class="close-btn" onclick="toggleMenu()">&times;</span>
+        </div>
+        <div class="side-nav-links">
+            <a href="index.html" onclick="toggleMenu()">🏠 Home</a>
+            <a href="#vendors" onclick="toggleMenu()">🏰 Vendors</a>
+            <a href="#services" onclick="toggleMenu()">🌟 Why Planora</a>
+            <a href="#booking" onclick="toggleMenu()">📞 Book</a>
+        </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Festival Events</div>
+
+<section class="hero fade-in" style="background: url('https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b') no-repeat center/cover;">
+    <div class="hero-content">
+        <h1>🎉 Festival Events</h1>
+        <p>Vibrant vendors for your festive celebrations.</p>
+        <a href="#vendors" class="hero-btn bounce">Explore Vendors</a>
+    </div>
+</section>
+
+<section class="venues-section" id="vendors">
+    <h2>Vendor Categories</h2>
+    <p class="section-subtitle">Build your festival experience with the right vendors.</p>
+    <div class="venue-grid">
+        <a href="decoration.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400" alt="Decoration">
+            <div class="venue-type-overlay">
+                <h3>Decoration</h3>
+                <p>Colorful stage decor and festive lighting.</p>
+            </div>
+        </a>
+        <a href="anchors.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400" alt="Anchors">
+            <div class="venue-type-overlay">
+                <h3>Anchors</h3>
+                <p>Experienced hosts for festival programs.</p>
+            </div>
+        </a>
+        <a href="catrers.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=400" alt="Catering">
+            <div class="venue-type-overlay">
+                <h3>Catering</h3>
+                <p>Festive menus with traditional favorites.</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+<section class="services-section" id="services">
+    <h2>Why Choose Planora for Festivals?</h2>
+    <p class="section-subtitle">Trusted vendors and seamless event coordination.</p>
+    <div class="services-grid">
+        <div class="service-item">
+            <div class="service-icon">🎆</div>
+            <h3>Festival Setup</h3>
+            <p>Complete event planning for themed festivals.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">🎤</div>
+            <h3>Program Hosts</h3>
+            <p>Energetic anchors to keep your event engaging.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">🍽️</div>
+            <h3>Festive Catering</h3>
+            <p>Menus designed for seasonal celebrations.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">🏵️</div>
+            <h3>Decor Themes</h3>
+            <p>Vibrant décor to match your festival mood.</p>
+        </div>
+    </div>
+</section>
+
+<section id="booking" class="booking-section fade-in" style="padding: 60px 20px; background: #fff; border-radius: 30px; margin: 40px auto; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); font-family: 'Poppins', sans-serif;">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="font-size: 2rem; color: #222; margin-bottom: 10px;">Book Your Festival Vendor</h2>
+        <p style="color: #666;">Start booking vendors for your next festival event.</p>
+    </div>
+    <a href="index.html#booking" class="hero-btn bounce" style="padding: 15px 30px;">Open Booking Form</a>
+</section>
+
+<script src="script.js"></script>
+</body>
+
+</html>
+

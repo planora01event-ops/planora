@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Farewell Party | Planora Gwalior</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="navbar-content">
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="images/image.png" alt="Planora Logo" class="logo-image">
+            </div>
+            <div class="logo-text">
+                <span class="logo-highlight">Planora</span>
+            </div>
+        </a>
+        <nav class="nav-links-pc">
+            <a href="index.html">Home</a>
+            <a href="#vendors">Vendors</a>
+            <a href="#services">Why Planora</a>
+            <a href="#booking">Book</a>
+        </nav>
+        <div class="lang-pc">
+            <button class="lang-btn active" id="btn-en-pc" onclick="translatePage('en')">EN</button>
+            <button class="lang-btn" id="btn-hi-pc" onclick="translatePage('hi')">HI</button>
+        </div>
+    </div>
+    <div class="side-nav" id="sideNav">
+        <div class="side-nav-header">
+            <span>Menu</span>
+            <span class="close-btn" onclick="toggleMenu()">&times;</span>
+        </div>
+        <div class="side-nav-links">
+            <a href="index.html" onclick="toggleMenu()">🏠 Home</a>
+            <a href="#vendors" onclick="toggleMenu()">🏰 Vendors</a>
+            <a href="#services" onclick="toggleMenu()">🌟 Why Planora</a>
+            <a href="#booking" onclick="toggleMenu()">📞 Book</a>
+        </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Farewell Party</div>
+
+<section class="hero fade-in" style="background: url('https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b') no-repeat center/cover;">
+    <div class="hero-content">
+        <h1>👋 Farewell Party</h1>
+        <p>Host a beautiful farewell with vendors who know how to make it special.</p>
+        <a href="#vendors" class="hero-btn bounce">Explore Vendors</a>
+    </div>
+</section>
+
+
+
+
+
+
+
+<!-- Venues Section -->
+<section class="venues-section" id="venues">
+
+<h2>Farewell Party Venue Categories</h2>
+<p class="section-subtitle">
+Choose from our curated collection of premium venues
+</p>
+
+<div class="venue-grid">
+
+<!-- Hotels -->
+<a href="hotel.html" class="venue-type-card">
+<img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800"
+alt="Hotels">
+
+<div class="venue-type-overlay">
+<h3>5-Star Hotels</h3>
+<p>Luxury accommodation with grand banquet halls</p>
+</div>
+</a>
+
+
+<!-- Gardens -->
+<a href="garden.html" class="venue-type-card">
+<img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?w=800"
+alt="Gardens">
+
+<div class="venue-type-overlay">
+<h3>Garden & Resorts</h3>
+<p>Beautiful outdoor spaces for grand celebrations</p>
+</div>
+</a>
+
+
+<!-- Guest Houses -->
+<a href="guesthouse.html" class="venue-type-card">
+<img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800"
+alt="Guest House">
+
+<div class="venue-type-overlay">
+<h3>Guest Houses</h3>
+<p>Intimate venues for family weddings</p>
+</div>
+</a>
+
+
+<!-- Cafes & Clubs -->
+<a href="cafe and clubs.html" class="venue-type-card">
+<img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800"
+alt="Cafe and Club">
+
+<div class="venue-type-overlay">
+<h3>Cafes & Clubs</h3>
+<p>Stylish indoor spaces for events & celebrations</p>
+</div>
+</a>
+
+</div>
+
+
+</section>
+
+
+
+<section class="venues-section" id="vendors">
+    <h2>Vendor Categories</h2>
+    <p class="section-subtitle">Curated vendors for farewell celebrations.</p>
+    <div class="venue-grid">
+        <a href="decoration.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400" alt="Decoration">
+            <div class="venue-type-overlay">
+                <h3>Decoration</h3>
+                <p>Meaningful décor for a farewell ambiance.</p>
+            </div>
+        </a>
+        <a href="dj sound.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400" alt="DJ Sound">
+            <div class="venue-type-overlay">
+                <h3>DJ Sound</h3>
+                <p>Music and sound for a memorable send-off.</p>
+            </div>
+        </a>
+        <a href="photographers.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400" alt="Photography">
+            <div class="venue-type-overlay">
+                <h3>Photography</h3>
+                <p>Capture the emotional moments beautifully.</p>
+            </div>
+        </a>
+        <a href="catrers.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=400" alt="Catering">
+            <div class="venue-type-overlay">
+                <h3>Catering</h3>
+                <p>Comfort food for guests during the farewell.</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+<section class="services-section" id="services">
+    <h2>Why Planora for Farewell Parties?</h2>
+    <p class="section-subtitle">A thoughtful farewell with vendors who care.</p>
+    <div class="services-grid">
+        <div class="service-item">
+            <div class="service-icon">🎶</div>
+            <h3>Memorable Music</h3>
+            <p>Sound that suits the mood of the farewell.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">📸</div>
+            <h3>Photographic Memories</h3>
+            <p>Capture every moment before goodbye.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">🍽️</div>
+            <h3>Catering Support</h3>
+            <p>Comfort food for a warm farewell.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">✨</div>
+            <h3>Meaningful Decor</h3>
+            <p>Decor that adds emotion to the farewell.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer style="padding: 30px 20px; background: #130923; color: white; text-align: center; margin-top: 60px;">
+    <p>© 2026 Planora Gwalior | Premium Wedding & Event Venues</p>
+    <p style="font-size: 0.9rem; margin-top: 10px;">Select your services and proceed to cart for complete booking</p>
+</footer>
+
+</body>
+
+</html>
+

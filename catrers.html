@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caterers</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vendors.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><img src="images/image.png" alt="Planora" class="logo-image"></div>
+        <div class="logo-text"><span class="logo-highlight">Planora</span></div>
+      </a>
+      <nav class="nav-links-pc">
+        <a href="index.html">Home</a>
+        <a href="index.html#categories">Venues</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-cart" href="cart.html">View Cart</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="title">🍽 Caterers</h1>
+    <div class="container">
+      <div class="cards" id="cards"></div>
+    </div>
+  </main>
+
+  <script src="js/cart.js"></script>
+  <script>
+    const caterers = [
+      { name: "Shri Ram Catrers", address: "Near Balmukund Sweets, Phalka Bazar, Gwalior", type: "Average", img: "https://images.unsplash.com/photo-1555244162-803834f70033" },
+      { name: "Chacha Catrers", address: "Ram Nagar, Morar, Gwalior", type: "Average", img: "https://images.unsplash.com/photo-1528605248644-14dd04022da1" },
+      { name: "Pandit Catrers", address: "Shri Shyam Kunj, Nai Sadak, Gwalior", type: "Premium", img: "https://images.unsplash.com/photo-1547592180-85f173990554" },
+      { name: "Bunty Catrers", address: "Gwalior", type: "Premium", img: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f" },
+      { name: "Omprakash Catrers", address: "Lakkad Khana Pul, Madhav Ganj, Gwalior", type: "Average", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4" },
+      { name: "JP Catrers", address: "Patri Road, Dangas Market, DD Nagar, Gwalior", type: "Budget", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+      { name: "Jain Catrers", address: "Gwalior", type: "Premium", img: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17" },
+      { name: "Jayaka Catrers", address: "Gandhi Road, Balwant Nagar, Gwalior", type: "Premium", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+      { name: "Abishek Catrers", address: "Gwalior", type: "Average", img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c" },
+      { name: "GK Catrers", address: "Gwalior", type: "Average", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+      { name: "RK Catrers", address: "Gwalior", type: "Average", img: "https://images.unsplash.com/photo-1521305916504-4a1121188589" },
+      { name: "Shri Suraj Catrers", address: "Anand Nagar, Gwalior", type: "Average", img: "https://images.unsplash.com/photo-1514933651103-005eec06c04b" },
+      { name: "Dhani Halwai", address: "Gwalior", type: "Budget", img: "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0" },
+      { name: "Brijwasi Catrers", address: "Near Govt Press, Maharaj Bada, Gwalior", type: "Average", img: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17" },
+      { name: "Giriraj Rathore Catrers", address: "Loha Mandi, Gwalior", type: "Budget", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+      { name: "Ruchi Catering", address: "Jain Chatravas, Madhav Dispensary, Gwalior", type: "Average", img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c" }
+    ];
+
+    const box = document.getElementById('cards');
+
+    function renderCards() {
+      box.innerHTML = '';
+      caterers.forEach(c => {
+        const div = document.createElement('div');
+        div.className = c.type === 'Premium' ? 'card premium' : 'card';
+        div.innerHTML = `
+          <div class="card-media"><img src="${c.img}" alt="${c.name}"></div>
+          <div class="card-body">
+            <h3>${c.name}</h3>
+            <p class="muted">📍 ${c.address}</p>
+            <p class="tag">⭐ ${c.type}</p>
+            <div class="card-actions">
+              <button class="btn btn-add">Add to Cart</button>
+              <button class="btn btn-book">Book Now</button>
+            </div>
+          </div>
+        `;
+
+        // Add behavior for Add / Book buttons
+        const addBtn = div.querySelector('.btn-add');
+        const bookBtn = div.querySelector('.btn-book');
+
+        addBtn.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          addServiceToCart({ vendor: c.name, category: 'Catering', price: 0, displayPrice: 'Custom' });
+          showCartMessage(c.name);
+        });
+
+        bookBtn.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          addServiceToCart({ vendor: c.name, category: 'Catering', price: 0, displayPrice: 'Custom' });
+          // navigate to booking page
+          window.location.href = 'booking.html';
+        });
+
+        box.appendChild(div);
+      });
+    }
+
+    renderCards();
+
+    function showCartMessage(name) {
+      const old = document.querySelector('.cart-toast');
+      if (old) old.remove();
+      const msg = document.createElement('div');
+      msg.className = 'cart-toast';
+      msg.innerHTML = `✅ <b>${name}</b><br>Added to cart &nbsp; <a href="cart.html">View Cart →</a>`;
+      document.body.appendChild(msg);
+      setTimeout(() => msg.remove(), 3500);
+    }
+  </script>
+
+  
+</body>
+</html>

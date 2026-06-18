@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hotels in Gwalior | My Utsave</title>
+    <link rel="stylesheet" href="hotel.css">
+   </head>
+
+   <body>
+<header>
+<h1>Top Hotels in Gwalior</h1>
+</header>
+
+<div class="search-container">
+    <input type="text" id="hotelSearch" placeholder="Search by hotel name or location (e.g., City Center, Lashkar)..." onkeyup="searchHotels()">
+</div>
+
+
+<script>
+function searchHotels() {
+    // Get the search input and convert to lowercase
+    let input = document.getElementById('hotelSearch').value.toLowerCase();
+    
+    // Get all hotel cards
+    let cards = document.getElementsByClassName('hotel-card');
+
+    for (let i = 0; i < cards.length; i++) {
+        // Get the Name and Address text from each card
+        let name = cards[i].querySelector('.hotel-name').innerText.toLowerCase();
+        let location = cards[i].querySelector('.hotel-location').innerText.toLowerCase();
+
+        // If the input matches the name OR the location, show the card; otherwise, hide it
+        if (name.includes(input) || location.includes(input)) {
+            cards[i].style.display = "";
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
+}
+
+
+
+function selectVenue(venueName) {
+
+    console.log("Saving Venue:", venueName);
+
+    // Save venue for any booking flow if needed
+    localStorage.setItem("selectedVenue", venueName);
+
+    // Add venue to cart
+    addServiceToCart({ vendor: venueName, category: 'Hotels', price: 0, displayPrice: venueName });
+    showToast(`Added to cart: ${venueName}`);
+    showConfirmationModal(venueName);
+}
+
+function showConfirmationModal(venueName) {
+    const modal = document.getElementById('confirmationModal');
+    if (!modal) return;
+    const messageEl = document.getElementById('confirmationText');
+    if (messageEl) {
+        messageEl.textContent = `${venueName} has been added to your cart.`;
+    }
+    modal.style.display = 'block';
+}
+
+function closeConfirmationModal() {
+    const modal = document.getElementById('confirmationModal');
+    if (modal) modal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('confirmationModal');
+    if (event.target === modal) {
+        closeConfirmationModal();
+    }
+};
+
+</script>
+<style>
+.search-container {
+    text-align: center;
+    margin: 20px 0;
+    padding: 0 15px;
+}
+
+#hotelSearch {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#hotelSearch:focus {
+    border-color: #ff5722; /* My Utsav brand color */
+}
+
+/* Ensure hotel cards are easy to hide/show */
+.hotel-card {
+    display: block; /* Default state */
+    margin-bottom: 30px;
+}
+
+/* Confirmation Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    margin: auto;
+    padding: 25px 30px;
+    border-radius: 18px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    position: relative;
+}
+
+.confirmation-message {
+    font-size: 1rem;
+    color: #333;
+    margin: 18px 0 24px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.modal-actions .view-btn,
+.modal-actions .book-btn {
+    width: auto;
+    min-width: 120px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    font-size: 26px;
+    color: #444;
+    cursor: pointer;
+}
+</style>
+      
+<section class="hotel-list-section" id="hotelList">
+
+
+
+<div class="hotel-content">
+
+ <div class="hotel-card">
+
+<h2 class="hotel-name">The City Grand Hotel</h2>
+<p class="hotel-location">Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/citygrand1.jpg">
+<img src="images/hotels/citygrand2.jpg">
+<img src="images/hotels/citygrand3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.5 / 5</p>
+<p><strong>Capacity:</strong> 300 Guests</p>
+
+<div class="hotel-buttons">
+<a href="https://maps.google.com/?q=City+Grand+Hotel+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('The City Grand Hotel')">
+💬 Book Now
+</button>
+</div>
+
+</div>
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Ananta Inn</h2>
+<p class="hotel-location">Old High Court Road, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/ananta1.jpg">
+<img src="images/hotels/ananta2.jpg">
+<img src="images/hotels/ananta3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.9 / 5</p>
+<p><strong>Capacity:</strong> 250 – 900 Guests</p>
+
+<div class="hotel-buttons">
+<a href="https://maps.google.com/?q=Ananta+Inn+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Ananta Inn')">
+💬 Book Now
+</button>
+</div>
+
+</div>
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Radisson Hotel</h2>
+<p class="hotel-location">City Center, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/radisson1.jpg">
+<img src="images/hotels/radisson2.jpg">
+<img src="images/hotels/radisson3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.5 / 5</p>
+<p><strong>Capacity:</strong> 500 – 1500 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Radisson+Hotel+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button 
+class="book-btn"
+onclick="selectVenue('Radisson Hotel')">
+
+💬 Book Now
+
+</button>
+
+</div>
+
+</div>
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Taj Usha Kiran Palace</h2>
+<p class="hotel-location">Jayendraganj, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/taj1.jpg">
+<img src="images/hotels/taj2.jpg">
+<img src="images/hotels/taj3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.8 / 5</p>
+<p><strong>Capacity:</strong> 300 – 1000 Guests</p>
+
+<div class="hotel-buttons">
+<a href="https://maps.google.com/?q=Taj+Usha+Kiran+Palace+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Taj Usha Kiran Palace')">
+💬 Book Now
+</button>
+</div>
+
+</div>
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Clarks Inn Suites</h2>
+<p class="hotel-location">Phool Bagh, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/clarks1.jpg">
+<img src="images/hotels/clarks2.jpg">
+<img src="images/hotels/clarks3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.2 / 5</p>
+<p><strong>Capacity:</strong> 300 – 1000 Guests</p>
+
+<div class="hotel-buttons">
+<a href="https://maps.google.com/?q=Clarks+Inn+Suites+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Clarks Inn Suites')">
+💬 Book Now
+</button>
+</div>
+
+</div>
+
+ <div class="hotel-card">
+
+<h2 class="hotel-name">The Central Park Hotel</h2>
+<p class="hotel-location">City Center, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/centralpark1.jpg">
+<img src="images/hotels/centralpark2.jpg">
+<img src="images/hotels/centralpark3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.1 / 5</p>
+<p><strong>Capacity:</strong> 250 – 900 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=The+Central+Park+Hotel+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('The Central Park Hotel')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Townhouse Padav Square</h2>
+<p class="hotel-location">Padav, Tansen Road, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/townhouse1.jpg">
+<img src="images/hotels/townhouse2.jpg">
+<img src="images/hotels/townhouse3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.8 / 5</p>
+<p><strong>Capacity:</strong> 150 – 600 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Townhouse+Padav+Square+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Townhouse Padav Square')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">The Prabha International</h2>
+<p class="hotel-location">Jhansi Road, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/prabha1.jpg">
+<img src="images/hotels/prabha2.jpg">
+<img src="images/hotels/prabha3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.0 / 5</p>
+<p><strong>Capacity:</strong> 250 – 800 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=The+Prabha+International+Hotel+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('The Prabha International')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Regent Place Gwalior</h2>
+<p class="hotel-location">Transport Nagar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/regentaplace1.jpg">
+<img src="images/hotels/regentaplace2.jpg">
+<img src="images/hotels/regentaplace3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.0 / 5</p>
+<p><strong>Capacity:</strong> 200 – 700 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Regent+Place+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Regent Place Gwalior')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Ambience Gwalior</h2>
+<p class="hotel-location">Station Road, Padav Area, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/ambience1.jpg">
+<img src="images/hotels/ambience2.jpg">
+<img src="images/hotels/ambience3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.9 / 5</p>
+<p><strong>Capacity:</strong> 200 – 600 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Ambience+Hotel+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Ambience Gwalior')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+ <div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Mayur</h2>
+<p class="hotel-location">Station Road, Padav Chouraha, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/mayur1.jpg">
+<img src="images/hotels/mayur2.jpg">
+<img src="images/hotels/mayur3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.8 / 5</p>
+<p><strong>Capacity:</strong> 200 – 700 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Mayur+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Mayur')">
+💬 Book Now
+</button>
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Narayanam Hotel</h2>
+<p class="hotel-location">River View Colony, Morar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/narayanam1.jpg">
+<img src="images/hotels/narayanam2.jpg">
+<img src="images/hotels/narayanam3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.0 / 5</p>
+<p><strong>Capacity:</strong> 250 – 800 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Narayanam+Hotel+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Narayanam Hotel')">
+💬 Book Now
+</button>
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Cantella</h2>
+<p class="hotel-location">Manik Vilas Colony, Jhansi Road, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/cantella1.jpg">
+<img src="images/hotels/cantella2.jpg">
+<img src="images/hotels/cantella3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.9 / 5</p>
+<p><strong>Capacity:</strong> 200 – 700 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Cantella+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Cantella')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">The Ved Mantra</h2>
+<p class="hotel-location">Roshni Ghar Road, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/vedmantra1.jpg">
+<img src="images/hotels/vedmantra2.jpg">
+<img src="images/hotels/vedmantra3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.1 / 5</p>
+<p><strong>Capacity:</strong> 250 – 900 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=The+Ved+Mantra+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('The Ved Mantra')">
+💬 Book Now
+</button>
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Sita Manor</h2>
+<p class="hotel-location">City Centre, Thatipur, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/sitamanor1.jpg">
+<img src="images/hotels/sitamanor2.jpg">
+<img src="images/hotels/sitamanor3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.2 / 5</p>
+<p><strong>Capacity:</strong> 300 – 900 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Sita+Manor+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Sita Manor')">
+💬 Book Now
+</button>
+</div>
+</div>
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Vinayak</h2>
+<p class="hotel-location">MLB Road, Padav, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/vinayak1.jpg">
+<img src="images/hotels/vinayak2.jpg">
+<img src="images/hotels/vinayak3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.8 / 5</p>
+<p><strong>Capacity:</strong> 200 – 700 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Vinayak+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Vinayak')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Landmark</h2>
+<p class="hotel-location">Manik Vilas Colony, Jhansi Road, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/landmark1.jpg">
+<img src="images/hotels/landmark2.jpg">
+<img src="images/hotels/landmark3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.0 / 5</p>
+<p><strong>Capacity:</strong> 250 – 800 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Landmark+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Landmark')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">The Bellevue Hotel</h2>
+<p class="hotel-location">Patel Nagar, City Center, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/bellevue1.jpg">
+<img src="images/hotels/bellevue2.jpg">
+<img src="images/hotels/bellevue3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.1 / 5</p>
+<p><strong>Capacity:</strong> 250 – 850 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=The+Bellevue+Hotel+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('The Bellevue Hotel')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">MK Vivanta</h2>
+<p class="hotel-location">Phool Bagh Circle, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/mkvivanta1.jpg">
+<img src="images/hotels/mkvivanta2.jpg">
+<img src="images/hotels/mkvivanta3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.2 / 5</p>
+<p><strong>Capacity:</strong> 300 – 1000 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=MK+Vivanta+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('MK Vivanta')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Radiance Hotel</h2>
+<p class="hotel-location">Tulsi Vihar Colony, City Center, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/radiance1.jpg">
+<img src="images/hotels/radiance2.jpg">
+<img src="images/hotels/radiance3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.0 / 5</p>
+<p><strong>Capacity:</strong> 250 – 850 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Radiance+Hotel+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Radiance Hotel')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+ <div class="hotel-card">
+
+<h2 class="hotel-name">FabHotel Royal Aanandam</h2>
+<p class="hotel-location">Padav Area, Near Railway Station, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/royalaanandam1.jpg">
+<img src="images/hotels/royalaanandam2.jpg">
+<img src="images/hotels/royalaanandam3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.9 / 5</p>
+<p><strong>Capacity:</strong> 200 – 700 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Fabhotel+Royal+Aanandam+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('FabHotel Royal Aanandam')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">The Mozaic Hotel</h2>
+<p class="hotel-location">University Road, Govindpuri, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/mozaic1.jpg">
+<img src="images/hotels/mozaic2.jpg">
+<img src="images/hotels/mozaic3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.1 / 5</p>
+<p><strong>Capacity:</strong> 250 – 900 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=The+Mozaic+Hotel+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('The Mozaic Hotel')">
+💬 Book Now
+</button>
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">The Shah Imperial</h2>
+<p class="hotel-location">Behind DD Mall, Shinde Ki Chhawani, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/shahimperial1.jpg">
+<img src="images/hotels/shahimperial2.jpg">
+<img src="images/hotels/shahimperial3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.2 / 5</p>
+<p><strong>Capacity:</strong> 300 – 1000 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=The+Shah+Imperial+Hotel+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('The Shah Imperial')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Fort Inn</h2>
+<p class="hotel-location">Urvai Gate, Ram Bag Colony, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/fortinn1.jpg">
+<img src="images/hotels/fortinn2.jpg">
+<img src="images/hotels/fortinn3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.0 / 5</p>
+<p><strong>Capacity:</strong> 250 – 800 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Fort+Inn+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Fort Inn')">
+💬 Book Now
+</button>
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Sudarshan</h2>
+<p class="hotel-location">Jinsi Road No.1, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/sudarshan1.jpg">
+<img src="images/hotels/sudarshan2.jpg">
+<img src="images/hotels/sudarshan3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.8 / 5</p>
+<p><strong>Capacity:</strong> 200 – 700 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Sudarshan+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button 
+class="book-btn"
+onclick="selectVenue('Hotel Sudarshan')">
+
+💬 Book Now
+
+</button>
+
+</div>
+</div>
+
+
+ <div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Horizon Plaza</h2>
+<p class="hotel-location">City Center, Lashkar, Gwalior</p>
+<button class="book-btn" 
+onclick="selectVenue('The City Grand Hotel')">
+💬 Book Now
+</button>
+
+<div class="hotel-images">
+<img src="images/hotels/horizon1.jpg">
+<img src="images/hotels/horizon2.jpg">
+<img src="images/hotels/horizon3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.1 / 5</p>
+<p><strong>Capacity:</strong> 250 – 900 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Horizon+Plaza+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Horizon Plaza')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Virat Inn</h2>
+<p class="hotel-location">City Centre, Near Jiwaji University Gate, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/virat1.jpg">
+<img src="images/hotels/virat2.jpg">
+<img src="images/hotels/virat3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.9 / 5</p>
+<p><strong>Capacity:</strong> 200 – 750 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Virat+Inn+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Virat Inn')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Sapphire</h2>
+<p class="hotel-location">Tulsi Vihar Colony, City Center, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/sapphire1.jpg">
+<img src="images/hotels/sapphire2.jpg">
+<img src="images/hotels/sapphire3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.0 / 5</p>
+<p><strong>Capacity:</strong> 250 – 850 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Sapphire+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Sapphire')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Regency</h2>
+<p class="hotel-location">Station Road, Padav, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/regency1.jpg">
+<img src="images/hotels/regency2.jpg">
+<img src="images/hotels/regency3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.9 / 5</p>
+<p><strong>Capacity:</strong> 200 – 700 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Regency+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Regency')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Mangalam Palace</h2>
+<p class="hotel-location">Station Road, Padav Area, Lashkar, Gwalior</p>
+
+<div class="hotel-images">
+<img src="images/hotels/mangalam1.jpg">
+<img src="images/hotels/mangalam2.jpg">
+<img src="images/hotels/mangalam3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.8 / 5</p>
+<p><strong>Capacity:</strong> 200 – 700 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Mangalam+Palace+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Mangalam Palace')">
+💬 Book Now
+</button>
+
+</div>
+</div>
+<div class="hotel-card">
+
+<h2 class="hotel-name">Regenta Place Gwalior</h2>
+
+<p class="hotel-location">
+DB City Road, near DB Mall, City Center, Gwalior
+</p>
+
+<h3>Images</h3>
+
+<div class="hotel-images">
+<img src="images/hotels/regenta1.jpg">
+<img src="images/hotels/regenta2.jpg">
+<img src="images/hotels/regenta3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.2/5</p>
+<p><strong>Capacity:</strong> 300 – 1000 Guests</p>
+<p><strong>Venue Type:</strong> Hotel Banquet</p>
+<p><strong>Parking:</strong> Available (100+ Vehicles)</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Regenta+Place+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Regenta Place Gwalior')">
+💬 Book Now
+</button>
+
+</div>
+
+</div>
+ <div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Prahlad</h2>
+
+<p class="hotel-location">
+Phool Bagh Road, Lashkar, near Gwalior Fort Road, Gwalior
+</p>
+
+<div class="hotel-images">
+<img src="images/hotels/prahlad1.jpg">
+<img src="images/hotels/prahlad2.jpg">
+<img src="images/hotels/prahlad3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.8/5</p>
+<p><strong>Capacity:</strong> 200 – 650 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Prahlad+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Prahlad')">
+💬 Book Now
+</button>
+
+</div>
+
+</div>
+ <div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Dera Haveli</h2>
+
+<p class="hotel-location">
+Jai Vilas Palace Road, near City Center, Lashkar, Gwalior
+</p>
+
+<div class="hotel-images">
+<img src="images/hotels/derahaweli1.jpg">
+<img src="images/hotels/derahaweli2.jpg">
+<img src="images/hotels/derahaweli3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.0/5</p>
+<p><strong>Capacity:</strong> 250 – 800 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=dera+haveli+Hotel+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Dera Haveli')">
+💬 Book Now
+</button>
+
+</div>
+
+</div>
+
+ <div class="hotel-card">
+
+<h2 class="hotel-name">Tansen Residency</h2>
+
+<p class="hotel-location">
+Near Phool Bagh Square, Residency Road, Lashkar, Gwalior
+</p>
+
+<div class="hotel-images">
+<img src="images/hotels/tansen1.jpg">
+<img src="images/hotels/tansen2.jpg">
+<img src="images/hotels/tansen3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.1/5</p>
+<p><strong>Capacity:</strong> 250 – 850 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Tansen+Residency+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Tansen Residency')">
+💬 Book Now
+</button>
+
+</div>
+
+</div>
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Adityaz</h2>
+
+<p class="hotel-location">
+Maharani Laxmi Bai Marg, City Center, Gwalior
+</p>
+
+<div class="hotel-images">
+<img src="images/hotels/adityaz1.jpg">
+<img src="images/hotels/adityaz2.jpg">
+<img src="images/hotels/adityaz3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.3/5</p>
+<p><strong>Capacity:</strong> 350 – 1200 Guests</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Adityaz+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Adityaz')">
+💬 Book Now
+</button>
+
+</div>
+
+</div>
+
+
+ <div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Shelter</h2>
+
+<p class="hotel-location">
+Shinde Ki Chhawani, Lashkar, near DD Mall, Gwalior
+</p>
+
+<div class="hotel-images">
+<img src="images/hotels/shelter1.jpg">
+<img src="images/hotels/shelter2.jpg">
+<img src="images/hotels/shelter3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.9/5</p>
+<p><strong>Capacity:</strong> 200 – 700 Guests</p>
+<p><strong>Venue Type:</strong> Hotel Banquet</p>
+<p><strong>Parking:</strong> Available (70+ Vehicles)</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Shelter+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Shelter')">
+💬 Book Now
+</button>
+
+</div>
+
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Nandgiri Palace</h2>
+
+<p class="hotel-location">
+Gandhi Road, near Jiwaji Club, City Centre, Gwalior
+</p>
+
+<div class="hotel-images">
+<img src="images/hotels/nandgiri1.jpg">
+<img src="images/hotels/nandgiri2.jpg">
+<img src="images/hotels/nandgiri3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.0/5</p>
+<p><strong>Capacity:</strong> 250 – 850 Guests</p>
+<p><strong>Venue Type:</strong> Hotel Banquet</p>
+<p><strong>Parking:</strong> Available (80+ Vehicles)</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Nandgiri+Palace+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Nandgiri Palace')">
+💬 Book Now
+</button>
+</div>
+
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Saya</h2>
+
+<p class="hotel-location">
+Near Railway Station, Padav Road, Lashkar, Gwalior
+</p>
+
+<div class="hotel-images">
+<img src="images/hotels/sai1.jpg">
+<img src="images/hotels/sai2.jpg">
+<img src="images/hotels/sai3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 3.8/5</p>
+<p><strong>Capacity:</strong> 200 – 650 Guests</p>
+<p><strong>Venue Type:</strong> Hotel Banquet</p>
+<p><strong>Parking:</strong> Available (60+ Vehicles)</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Saya+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Saya')">
+💬 Book Now
+</button>
+
+</div>
+
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Grand Plaza</h2>
+
+<p class="hotel-location">
+MLB Road, near Phool Bagh Square, Lashkar, Gwalior
+</p>
+
+<div class="hotel-images">
+<img src="images/hotels/grandplaza1.jpg">
+<img src="images/hotels/grandplaza2.jpg">
+<img src="images/hotels/grandplaza3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.0/5</p>
+<p><strong>Capacity:</strong> 250 – 850 Guests</p>
+<p><strong>Venue Type:</strong> Hotel Banquet</p>
+<p><strong>Parking:</strong> Available (80+ Vehicles)</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Grand+Plaza+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Grand Plaza')">
+💬 Book Now
+</button>
+
+</div>
+
+</div>
+
+
+
+<div class="hotel-card">
+
+<h2 class="hotel-name">Hotel Royal Inn</h2>
+
+<p class="hotel-location">
+City Center Main Road, near DB Mall, Gwalior
+</p>
+
+<div class="hotel-images">
+<img src="images/hotels/royal1.jpg">
+<img src="images/hotels/royal2.jpg">
+<img src="images/hotels/royal3.jpg">
+</div>
+
+<p><strong>Rating:</strong> 4.0/5</p>
+<p><strong>Capacity:</strong> 250 – 900 Guests</p>
+<p><strong>Venue Type:</strong> Hotel Banquet</p>
+<p><strong>Parking:</strong> Available (90+ Vehicles)</p>
+
+<div class="hotel-buttons">
+
+<a href="https://maps.google.com/?q=Hotel+Royal+Inn+Gwalior" target="_blank">
+<button class="view-btn">📍 View Location</button>
+</a>
+
+<button class="book-btn" 
+onclick="selectVenue('Hotel Royal Inn')">
+💬 Book Now
+</button>
+</div>
+
+</div>
+
+</section>
+
+<div id="confirmationModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeConfirmationModal()">&times;</span>
+        <h2>Added to Cart</h2>
+        <p id="confirmationText" class="confirmation-message">The selected hotel has been added to your cart.</p>
+        <div class="modal-actions">
+            <button class="view-btn" onclick="closeConfirmationModal()">Continue</button>
+            <button class="book-btn" onclick="window.location.href='cart.html'">Go to Cart</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Planora | Premium Event Venues in Gwalior</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+
+</head>
+
+<body>
+
+
+
+
+
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><img src="images/image.png" alt="Planora" class="logo-image"></div>
+        <div class="logo-text"><span class="logo-highlight">Planora</span></div>
+      </a>
+      <nav class="nav-links-pc">
+        <a href="index.html">Home</a>
+        <a href="#categories">Events</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="lang-pc">
+          <button class="lang-btn active" id="btn-en-pc" onclick="translatePage('en')">EN</button>
+          <button class="lang-btn" id="btn-hi-pc" onclick="translatePage('hi')">HI</button>
+        </div>
+        <button type="button" class="btn btn-cta" onclick="openOfferPopup()">View Offers</button>
+        <a href="cart.html" class="btn btn-secondary">View Cart</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Discount Modal -->
+  <div id="discountModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeDiscountModal()">&times;</span>
+      <div class="popup-box">
+        <h2>Special Discount</h2>
+        <p>Enjoy an exclusive event booking discount when you reserve now. Click below to book and save!</p>
+        <a href="booking.html" class="btn btn-cart">Book Now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Poster Modal -->
+  <div id="posterModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closePosterModal()">&times;</span>
+      <img src="images/new poster1.png" alt="Event Management Poster" class="modal-image">
+    </div>
+  </div>
+
+  <script>
+    function openDiscountModal() {
+      document.getElementById('discountModal').style.display = 'block';
+    }
+    function closeDiscountModal() {
+      document.getElementById('discountModal').style.display = 'none';
+    }
+    function openPosterModal() {
+      document.getElementById('posterModal').style.display = 'block';
+    }
+    function closePosterModal() {
+      document.getElementById('posterModal').style.display = 'none';
+    }
+    window.onclick = function(event) {
+      const posterModal = document.getElementById('posterModal');
+      const discountModal = document.getElementById('discountModal');
+      if (event.target === posterModal) {
+        posterModal.style.display = 'none';
+      }
+      if (event.target === discountModal) {
+        discountModal.style.display = 'none';
+      }
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+      const track = document.getElementById('servicesTrack');
+      if (track) {
+        track.innerHTML += track.innerHTML;
+      }
+      // Show poster as pop-up ad on page load
+      setTimeout(function() {
+        openPosterModal();
+      }, 1000);
+    });
+  </script>
+
+  <div id="google_translate_element" style="display:none"></div>
+  <script src="script.js"></script>
+
+
+    <!-- Hero Section -->
+    <section class="hero fade-in">
+        <div class="hero-background"></div>
+        <div class="hero-shell">
+            <div class="hero-copy">
+                <span class="hero-eyebrow">Luxury wedding and celebration venues</span>
+                <h1>Craft unforgettable events across Gwalior.</h1>
+                <p>Discover premium gardens, banquet halls, resorts and boutique venues with expert planning, curated services and seamless bookings.</p>
+                <div class="hero-actions">
+                    <a href="#categories" class="btn btn-hero">Explore Venues</a>
+                    <a href="booking.html" class="btn btn-ghost">Reserve a Consultation</a>
+                    <button type="button" class="btn btn-secondary" onclick="openPosterModal()">View Poster</button>
+                </div>
+                <div class="trust-row">
+                    <div class="trust-item">
+                        <span class="trust-badge">Trusted</span>
+                        <p>500+ luxury events planned</p>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-badge">Verified</span>
+                        <p>Top venues in Gwalior</p>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-badge">Premium</span>
+                        <p>Dedicated event concierge</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="hero-card-photo"></div>
+                    <div class="hero-card-copy">
+                        <p>Featured venue spotlight</p>
+                        <h3>Riverside garden weddings</h3>
+                        <p>Elegant outdoor spaces with curated lighting, floral styling and private hospitality.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about fade-in">
+        <h2>Why Choose Planora?</h2>
+
+        <p>
+            Planora is Gwalior's trusted platform to discover and book the best
+            event venues including gardens, banquet halls, hotels and resorts.
+        </p>
+
+    </section>
+
+
+    <!-- Features -->
+    <section class="features fade-in">
+
+        <h2>Why People Love Planora</h2>
+
+        <div class="features-container">
+
+            <div class="feature-card slide-in-left">
+                <div class="feature-icon">🏛</div>
+                <h3>Premium Venues</h3>
+                <p>Hand-picked gardens, banquet halls and resorts across Gwalior.</p>
+                <span class="feature-number">150+ Venues</span>
+            </div>
+
+            <div class="feature-card slide-in-left">
+                <div class="feature-icon">💍</div>
+                <h3>Trusted by Couples</h3>
+                <p>Hundreds of couples trusted Planora to plan their big day.</p>
+                <span class="feature-number">1000+ Bookings</span>
+            </div>
+
+            <div class="feature-card slide-in-left">
+                <div class="feature-icon">⭐</div>
+                <h3>Top Rated Venues</h3>
+                <p>All venues are verified and rated by real customers.</p>
+                <span class="feature-number">4.8 Average Rating</span>
+            </div>
+
+            <div class="feature-card slide-in-left">
+                <div class="feature-icon">⚡</div>
+                <h3>Quick Booking</h3>
+                <p>Instant contact with venue owners via call or WhatsApp.</p>
+                <span class="feature-number">24/7 Support</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Event Type Categories -->
+    <section class="event-categories" id="categories">
+        <h2>Choose Your Event Type</h2>
+        <p class="category-subtitle">Select your event and explore perfect venues</p>
+        <div class="event-container">
+            <a href="wedding.html" class="event-card">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400" alt="All Wedding Related Events">
+                <div class="event-overlay">
+                    <h3>💍 All Wedding Related Events</h3>
+                    <p>Complete planning for every wedding moment.</p>
+                </div>
+            </a>
+
+            <a href="childhoodcelebrations.html" class="event-card">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400" alt="Childhood Celebrations">
+                <div class="event-overlay">
+                    <h3>🎈 Childhood Celebrations and 🎂 Birthday Parties</h3>
+                    <p>Magical parties and fun-filled family moments.</p>
+                </div>
+            </a>
+
+            <a href="privatethemedparties.html" class="event-card">
+                <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=400" alt="Private Themed Parties">
+                <div class="event-overlay">
+                    <h3>🎭 Private Themed Parties and
+                        🎉 Festival Events
+                    </h3>
+                    <p>Unique themes tailored for your special gathering.</p>
+                </div>
+            </a>
+
+            
+
+           <a href="anniversaries.html" class="event-card">
+
+<img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80"
+alt="Anniversaries">
+
+<div class="event-overlay">
+<h3>💖 Anniversaries and 🎀 Kitty Parties</h3>
+
+<p>
+Elegant and romantic venues to celebrate your special milestones.
+Comfortable spaces for social gatherings and fun.
+</p>
+
+</div>
+
+</a>
+
+            
+            <a href="corporateevent.html" class="event-card">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400"alt="Corporate & Business Events">
+                <div class="event-overlay">
+                    <h3>💼 Corporate & Business Events</h3>
+                    <p>Professional settings for meetings, launches, and conferences.</p>
+                </div>
+            </a>
+
+            
+            
+
+            <a href="culturalevent.html" class="event-card">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400" alt="Social And Cultural Events">
+                <div class="event-overlay">
+                    <h3>🎭 Social And Cultural Events</h3>
+                    <p>Elegant venues for cultural, social and community celebrations.</p>
+                </div>
+            </a>
+
+            
+            <a href="schoolcollegeevents.html" class="event-card">
+                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400" alt="School, Colleges Events">
+                <div class="event-overlay">
+                    <h3>🎓 School & College Events</h3>
+                    <p>Safe and versatile spaces for academic and campus events.</p>
+                </div>
+            </a>
+
+            <a href="retirementparty.html" class="event-card">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400" alt="Retirement Party">
+                <div class="event-overlay">
+                    <h3>🎉 Any Party</h3>
+                    <p>Special venues to celebrate new beginnings.</p>
+                </div>
+            </a>
+
+            
+            <a href="farewellparty.html" class="event-card">
+                <img src="https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?w=400" alt="Farewell Party">
+                <div class="event-overlay">
+                    <h3>👋 Farewell Party</h3>
+                    <p>Heartfelt settings to say goodbye in style.</p>
+                </div>
+            </a>
+
+            <a href="religiousceremony.html" class="event-card">
+    <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=400&q=80"
+         alt="Religious Ceremony">
+
+    <div class="event-overlay">
+        <h3>🙏 Religious Ceremony</h3>
+
+        <p>
+            Peaceful venues for spiritual gatherings, pujas and traditional ceremonies.
+        </p>
+    </div>
+</a>
+
+<a href="otherevent.html" class="event-card">
+                <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=400" alt="Private Themed Parties">
+                <div class="event-overlay">
+                    <h3>🎭 Other events and specific booking
+                        
+                    </h3>
+                    <p>Unique themes tailored for your special gathering.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+
+
+
+    <section class="services-info" id="services">
+    <div class="services-header">
+        <h2>More Than Just Venues 🌟</h2>
+        <p>
+            Hum sirf venue hi nahi, aapke poore event ko yaadgaar banane ke liye ye services bhi provide karte hain.
+        </p>
+    </div>
+
+    <div class="services-viewport">
+        <div class="services-track" id="servicesTrack">
+            
+            <div class="service-card">
+                <div class="service-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400" alt="Photography">
+                </div>
+                <div class="service-content">
+                    <h3>📸 Photography</h3>
+                    <p>Candid wedding photography and cinematic videos in Gwalior.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400" alt="DJ">
+                </div>
+                <div class="service-content">
+                    <h3>🎧 DJ & Sound</h3>
+                    <p>High-quality sound setup and the best DJs in town.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=400" alt="Invitations">
+                </div>
+                <div class="service-content">
+                    <h3>📇 Invitations</h3>
+                    <p>Customized digital invites and premium printed cards.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400" alt="Decoration">
+                </div>
+                <div class="service-content">
+                    <h3>✨ Decoration</h3>
+                    <p>Floral setups, entrance decor, and stage lighting.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=400" alt="Catering">
+                </div>
+                <div class="service-content">
+                    <h3>🍽️ Catering</h3>
+                    <p>Delicious catering with customizable menus for your guests.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const track = document.getElementById('servicesTrack');
+    if (track) {
+        // Double the content to create a seamless loop
+        track.innerHTML += track.innerHTML;
+    }
+});
+</script>
+
+
+
+    <!-- POPUP OFFER -->
+    <div id="offerPopup" class="popup-overlay" style="display: none;">
+        <div class="popup-box">
+
+            <span class="close-btn" onclick="closePopup()">×</span>
+
+            <h2>🎉 Special Launch Offer!</h2>
+
+            <h1 class="offer-text">
+                Get <span>20% OFF</span> on Every Booking
+            </h1>
+
+            <p>
+                Book your perfect venue today and save big on your celebrations.
+            </p>
+
+            <a href="#booking" class="popup-btn">
+                Book Now & Save 20%
+            </a>
+
+        </div>
+    </div>
+
+    <style>
+        /* Overlay */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        /* Popup Box */
+        .popup-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            animation: popupFade 0.5s ease;
+        }
+
+        /* Heading */
+        .popup-box h2 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        /* Offer Text */
+        .offer-text {
+            font-size: 28px;
+            margin: 10px 0;
+        }
+
+        .offer-text span {
+            color: var(--accent-2);
+            font-weight: bold;
+        }
+
+        /* Button */
+        .popup-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 25px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        /* Animation */
+        @keyframes popupFade {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script>
+        /* Auto show popup disabled; offer display will be triggered by click */
+        function openOfferPopup() {
+            document.getElementById("offerPopup").style.display = "flex";
+        }
+
+        /* Close popup */
+        function closePopup() {
+            document.getElementById("offerPopup").style.display = "none";
+        }
+    </script>
+
+
+
+
+
+
+    
+
+
+
+
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+
+        <h2>Contact Us</h2>
+
+        <p>If you want to book a venue or have any questions, feel free to contact us.</p>
+
+        <div class="contact-buttons">
+
+            <a href="tel:9243108170" class="contact-btn call-btn">📞 Call Now</a>
+
+            <a href="https://wa.me/919243108170" target="_blank" class="contact-btn whatsapp-btn">
+                💬 WhatsApp
+            </a>
+
+            <a href="#" class="contact-btn location-btn">📍 Gwalior Location</a>
+
+        </div>
+
+
+
+        <h2> Follow Us</h2>
+        <p>Scan QR or call us directly for bookings</p>
+
+        <div class="contact-main">
+
+            <!-- QR Codes Section -->
+            <div class="qr-section">
+
+                <div class="qr-card">
+                    <h3>📷 Instagram</h3>
+
+                    <a href="https://www.instagram.com/my.utsav/" target="_blank" rel="noopener noreferrer">
+                        <img src="images/insta.png" alt="Instagram QR">
+                    </a>
+
+                    <p>Follow us on Instagram</p>
+                </div>
+
+
+                <div class="qr-card">
+                    <h3>💬 WhatsApp Channel</h3>
+                    <a href=" https://whatsapp.com/channel/0029VbBfGrI7z4ka1mUW4x01 " target="_blank"
+                        rel="noopener noreferrer">
+                        <img src="images/whatsapp.png" alt="WhatsApp Channel QR">
+                    </a>
+
+                    <p>Join our WhatsApp Channel</p>
+                </div>
+
+            </div>
+
+
+            <!-- Call Section -->
+            <div class="call-section">
+
+                <h3>📞 Call Us Directly</h3>
+                <h2>+919243108170</h2>
+
+                <p class="call-note">
+                    Available 9 AM – 9 PM
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>© 2026 Planora Gwalior | Made in India 🇮🇳</p>
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Family Functions | Planora Gwalior</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="navbar-content">
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="images/image.png" alt="Planora Logo" class="logo-image">
+            </div>
+            <div class="logo-text">
+                <span class="logo-highlight">Planora</span>
+            </div>
+        </a>
+        <nav class="nav-links-pc">
+            <a href="index.html">Home</a>
+            <a href="#vendors">Vendors</a>
+            <a href="#services">Why Planora</a>
+            <a href="#booking">Book</a>
+        </nav>
+        <div class="lang-pc">
+            <button class="lang-btn active" id="btn-en-pc" onclick="translatePage('en')">EN</button>
+            <button class="lang-btn" id="btn-hi-pc" onclick="translatePage('hi')">HI</button>
+        </div>
+    </div>
+    <div class="side-nav" id="sideNav">
+        <div class="side-nav-header">
+            <span>Menu</span>
+            <span class="close-btn" onclick="toggleMenu()">&times;</span>
+        </div>
+        <div class="side-nav-links">
+            <a href="index.html" onclick="toggleMenu()">🏠 Home</a>
+            <a href="#vendors" onclick="toggleMenu()">🏰 Vendors</a>
+            <a href="#services" onclick="toggleMenu()">🌟 Why Planora</a>
+            <a href="#booking" onclick="toggleMenu()">📞 Book</a>
+        </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Family Functions</div>
+
+<section class="hero fade-in" style="background: url('https://images.unsplash.com/photo-1511457704848-20a984c4f47f') no-repeat center/cover;">
+    <div class="hero-content">
+        <h1>👪 Family Functions</h1>
+        <p>Trusted vendors for meaningful family celebrations.</p>
+        <a href="#vendors" class="hero-btn bounce">Explore Vendors</a>
+    </div>
+</section>
+
+<section class="venues-section" id="vendors">
+    <h2>Vendor Categories</h2>
+    <p class="section-subtitle">Everything you need for family gatherings and functions.</p>
+    <div class="venue-grid">
+        <a href="decoration.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400" alt="Decoration">
+            <div class="venue-type-overlay">
+                <h3>Decoration</h3>
+                <p>Warm decor for family-friendly gatherings.</p>
+            </div>
+        </a>
+        <a href="hotel.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" alt="Hotels">
+            <div class="venue-type-overlay">
+                <h3>Hotels</h3>
+                <p>Spacious venues for family ceremonies.</p>
+            </div>
+        </a>
+        <a href="catrers.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=400" alt="Catering">
+            <div class="venue-type-overlay">
+                <h3>Catering</h3>
+                <p>Delicious meals for family and guests.</p>
+            </div>
+        </a>
+        <a href="photographers.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400" alt="Photography">
+            <div class="venue-type-overlay">
+                <h3>Photography</h3>
+                <p>Capture your family memories beautifully.</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+<section class="services-section" id="services">
+    <h2>Why Planora for Family Functions?</h2>
+    <p class="section-subtitle">Personalized vendors for every family celebration.</p>
+    <div class="services-grid">
+        <div class="service-item">
+            <div class="service-icon">🏡</div>
+            <h3>Comfortable Venues</h3>
+            <p>Family-first spaces with warm ambiance.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">🍽️</div>
+            <h3>Family Catering</h3>
+            <p>Menus designed for group dining.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">📸</div>
+            <h3>Memory Photography</h3>
+            <p>Timeless photos for your family event.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">💐</div>
+            <h3>Tailored Decor</h3>
+            <p>Beautiful settings for family togetherness.</p>
+        </div>
+    </div>
+</section>
+
+<section id="booking" class="booking-section fade-in" style="padding: 60px 20px; background: #fff; border-radius: 30px; margin: 40px auto; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); font-family: 'Poppins', sans-serif;">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="font-size: 2rem; color: #222; margin-bottom: 10px;">Book Your Family Function</h2>
+        <p style="color: #666;">Planora makes family gatherings easy and joyful.</p>
+    </div>
+    <a href="index.html#booking" class="hero-btn bounce" style="padding: 15px 30px;">Open Booking Form</a>
+</section>
+
+<script src="script.js"></script>
+</body>
+
+</html>
+

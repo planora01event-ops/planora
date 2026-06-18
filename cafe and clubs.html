@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gwalior Guide | Search by Location</title>
+    <style>
+       :root {
+    --primary: #007bff;
+    --success: #25D366;
+    --club-color: #d81b60;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --shadow-hover: rgba(0, 0, 0, 0.2);
+    --transition-speed: 0.3s;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.header-section {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 1000;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+h1 {
+    text-align: center;
+    color: #222;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-size: 2rem;
+    animation: fadeInDown 1s ease forwards;
+}
+
+/* Search Bar Style */
+.search-container {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    animation: fadeInUp 1s ease forwards;
+}
+
+#locationSearch {
+    width: 100%;
+    padding: 15px 25px;
+    border-radius: 50px;
+    border: 2px solid #ddd;
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition-speed);
+    box-shadow: 0 4px 12px var(--shadow-light);
+}
+
+#locationSearch:focus {
+    border-color: var(--primary);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.2);
+}
+
+/* Section Titles */
+h2 {
+    border-left: 6px solid var(--primary);
+    padding-left: 15px;
+    margin: 30px 20px 20px;
+    color: #333;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: fadeInLeft 0.8s ease forwards;
+}
+
+/* Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin: 0 20px 40px;
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px var(--shadow-light);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 12px 28px var(--shadow-hover);
+}
+
+/* Hidden cards for filtering */
+.card.hidden {
+    display: none;
+}
+
+/* Card Images */
+.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform var(--transition-speed);
+}
+
+.card:hover .card-img {
+    transform: scale(1.05);
+}
+
+/* Card Body */
+.card-body {
+    padding: 15px 20px;
+    flex-grow: 1;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background var(--transition-speed), color var(--transition-speed);
+}
+
+.badge-cafe {
+    background: #e3f2fd;
+    color: var(--primary);
+}
+
+.badge-club {
+    background: #fce4ec;
+    color: var(--club-color);
+}
+
+/* Titles & Address */
+.title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #111;
+}
+
+.addr {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 15px;
+    height: 35px;
+    overflow: hidden;
+}
+
+/* Buttons */
+.btn-group {
+    display: flex;
+    gap: 10px;
+    padding: 0 15px 15px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all var(--transition-speed);
+}
+
+.btn-map {
+    background: #f1f3f4;
+    color: #1a73e8;
+    border: 1px solid #dadce0;
+}
+
+.btn-map:hover {
+    background: #e8f0fe;
+    transform: scale(1.05);
+}
+
+.btn-wa {
+    background: var(--success);
+    color: white;
+    border: none;
+}
+
+.btn-wa:hover {
+    background: #128C7E;
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+    0% { opacity: 0; transform: translateX(-30px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.3rem; }
+    #locationSearch { padding: 12px 20px; font-size: 0.95rem; }
+}
+
+@media (max-width: 480px) {
+    #locationSearch { padding: 10px 15px; font-size: 0.9rem; }
+    .btn-group { flex-direction: column; }
+}
+
+/* Confirmation Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    margin: auto;
+    padding: 25px 30px;
+    border-radius: 18px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    position: relative;
+}
+
+.confirmation-message {
+    font-size: 1rem;
+    color: #333;
+    margin: 18px 0 24px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.modal-actions button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.modal-actions .btn-continue {
+    background: #6c757d;
+    color: white;
+}
+
+.modal-actions .btn-continue:hover {
+    background: #5a6268;
+}
+
+.modal-actions .btn-cart {
+    background: linear-gradient(135deg, #ff6b6b, #ff8787);
+    color: white;
+}
+
+.modal-actions .btn-cart:hover {
+    background: linear-gradient(135deg, #ff8787, #ff6b6b);
+}
+
+.close-modal {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    font-size: 26px;
+    color: #444;
+    cursor: pointer;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="header-section">
+        <h1>Gwalior Lifestyle</h1>
+        <div class="search-container">
+            <input type="text" id="locationSearch"
+                placeholder="🔍 Search by location (e.g. City Center, Morar, MLB Road)..." onkeyup="filterLocations()">
+        </div>
+    </div>
+
+    <div id="mainContent">
+        <h2>🔥 Clubs & Lounges</h2>
+        <div class="grid" id="clubGrid"></div>
+
+        <h2>☕ Cafes & Hangouts</h2>
+        <div class="grid" id="cafeGrid"></div>
+    </div>
+
+    <script>
+        const waNum = "919243108170";
+
+        const clubs = [
+            { n: "Molecule Air Bar", a: "Hotel Vinayak, MLB Road", i: "https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=400" },
+            { n: "Medusa Nightclub", a: "City Center, Gwalior", i: "https://images.unsplash.com/photo-1545128485-c400e7702796?w=400" },
+            { n: "VYB Bar & Lounge", a: "University Road, Gwalior", i: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400" },
+           
+            { n: "The Sky Club", a: "Behind Hotel Horizon, City Center", i: "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=400" },
+            { n: "The Black Room", a: "Govindpuri, Gwalior", i: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400" },
+            { n: "Wings Bar", a: "Hotel Ramaya, Mela Road", i: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400" },
+            { n: "Blue Lounge", a: "Dindayal City Mall", i: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=400" },
+            { n: "Lit Ultra Bar", a: "City Center, Gwalior", i: "https://images.unsplash.com/photo-1485872299829-c673f5194813?w=400" },
+            { n: "Radioactive Lounge", a: "Patel Nagar, Gwalior", i: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400" },
+            { n: "Mezbaan Bar", a: "AB Road, Gwalior", i: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=400" },
+            { n: "Vatika Bar", a: "Hem Singh Ki Pared", i: "https://images.unsplash.com/photo-1563191799-2c7e8c185bb3?w=400" },
+            { n: "Maya Bar", a: "Millenium Plaza", i: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400" },
+            { n: "SaFArI Bar", a: "Race Course Road", i: "https://images.unsplash.com/photo-1525193612562-0ec53b0e5d7c?w=400" },
+            { n: "High Tide Lounge", a: "Hotel Shelter, Gwalior", i: "https://images.unsplash.com/photo-1560624052-449f5ddf0c31?w=400" }
+        ];
+
+        const cafes = [
+            { n: "Bistro 57", a: "B-99, City Center", i: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400" },
+            { n: "Captain’s Cafe", a: "Athena Building, City Centre", i: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400" },
+            { n: "Victorian Vantage", a: "Near IDBI Bank, City Center", i: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400" },
+            { n: "Nothing Before Coffee", a: "Phoolbagh, Gwalior", i: "https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=400" },
+            { n: "Indian Coffee House", a: "Station Road, Gwalior", i: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400" },
+            { n: "Barista Coffee", a: "New Govindpuri, City Center", i: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400" },
+            { n: "Chai Sutta Bar", a: "City Center Main Road", i: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400" },
+            { n: "Teagather Lounge", a: "Chetakpuri, Gwalior", i: "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400" },
+            { n: "Cafe Dream Arena", a: "Phoolbagh Circle", i: "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400" },
+            { n: "Phalsafa Cafe", a: "Gandhi Nagar, Gwalior", i: "https://images.unsplash.com/photo-1525193612562-0ec53b0e5d7c?w=400" },
+            { n: "Boulevard 69", a: "City Center, Gwalior", i: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400" },
+           
+            { n: "Dr. Burger", a: "Gole Ka Mandir, Gwalior", i: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400" },
+            { n: "Space X Cafe", a: "Airport Road, Gwalior", i: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=400" },
+            { n: "Hashtag Cafe", a: "T-Square Rooftop, City Center", i: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=400" }
+        ];
+
+        function renderCards(data, targetId, type) {
+            const grid = document.getElementById(targetId);
+            data.forEach(obj => {
+                const badgeClass = type === 'club' ? 'badge-club' : 'badge-cafe';
+                grid.innerHTML += `
+                    <div class="card" data-location="${obj.a.toLowerCase()}">
+                        <img src="${obj.i}" class="card-img">
+                        <div class="card-body">
+                            <span class="badge ${badgeClass}">${type}</span>
+                            <div class="title">${obj.n}</div>
+                            <div class="addr">${obj.a}</div>
+                        </div>
+                        <div class="btn-group">
+                            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(obj.n + ' Gwalior')}" 
+target="_blank" class="btn btn-map">📍 view location</a>
+                           <button 
+class="btn btn-wa"
+onclick="selectVenue('${obj.n}')">
+
+💬 Book
+
+</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterLocations() {
+
+    const input =
+        document
+        .getElementById('locationSearch')
+        .value
+        .toLowerCase();
+
+    const cards =
+        document
+        .getElementsByClassName('card');
+
+    for (let i = 0; i < cards.length; i++) {
+
+        const location =
+            cards[i]
+            .getAttribute('data-location');
+
+        const name =
+            cards[i]
+            .querySelector('.title')
+            .innerText
+            .toLowerCase();
+
+        if (
+            location.includes(input) ||
+            name.includes(input)
+        ) {
+            cards[i].classList.remove('hidden');
+        }
+        else {
+            cards[i].classList.add('hidden');
+        }
+    }
+}
+        // Initial Render
+        renderCards(clubs, 'clubGrid', 'club');
+        renderCards(cafes, 'cafeGrid', 'cafe');
+
+
+
+        
+
+function selectVenue(venueName) {
+
+    console.log("Saving Venue:", venueName);
+
+    // Save venue for any booking flow if needed
+    localStorage.setItem("selectedVenue", venueName);
+
+    // Add venue to cart
+    addServiceToCart({ vendor: venueName, category: 'Cafe & Club', price: 0, displayPrice: venueName });
+    showToast(`Added to cart: ${venueName}`);
+    showConfirmationModal(venueName);
+}
+
+function showConfirmationModal(venueName) {
+    const modal = document.getElementById('confirmationModal');
+    if (!modal) return;
+    const messageEl = document.getElementById('confirmationText');
+    if (messageEl) {
+        messageEl.textContent = `${venueName} has been added to your cart.`;
+    }
+    modal.style.display = 'block';
+}
+
+function closeConfirmationModal() {
+    const modal = document.getElementById('confirmationModal');
+    if (modal) modal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('confirmationModal');
+    if (event.target === modal) {
+        closeConfirmationModal();
+    }
+};
+
+    </script>
+<script src="js/cart.js"></script>
+</body>
+
+<div id="confirmationModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeConfirmationModal()">&times;</span>
+        <h2>Added to Cart</h2>
+        <p id="confirmationText" class="confirmation-message">The selected cafe/club has been added to your cart.</p>
+        <div class="modal-actions">
+            <button class="btn-continue" onclick="closeConfirmationModal()">Continue</button>
+            <button class="btn-cart" onclick="window.location.href='cart.html'">Go to Cart</button>
+        </div>
+    </div>
+</div>
+</html>

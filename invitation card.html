@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitation Cards</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vendors.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><img src="images/image.png" alt="Planora" class="logo-image"></div>
+        <div class="logo-text"><span class="logo-highlight">Planora</span></div>
+      </a>
+      <nav class="nav-links-pc">
+        <a href="index.html">Home</a>
+        <a href="index.html#categories">Venues</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-cart" href="cart.html">View Cart</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="title">Invitation Cards</h1>
+    <div class="container">
+      <div class="cards" id="cards"></div>
+    </div>
+  </main>
+
+  <script src="js/cart.js"></script>
+  <script>
+const TRUSTED_BADGE = "🏆 Our Trusted Partner";
+
+const invitations = [
+  {
+    id: 1,
+    name: "Kriti Cards",
+    address: "Utt Pul, Old High Court Rd, Gwalior",
+    service: "Wedding & Premium Invitation Cards",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1519741497674-611481863552"
+  },
+  {
+    id: 2,
+    name: "Kohli Card House",
+    address: "Old High Court Road, Gwalior",
+    service: "Custom Wedding & Digital Invitation Cards",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed"
+  },
+  {
+    id: 3,
+    name: "Yash Graphics",
+    address: "Lashkar Area, Gwalior",
+    service: "Wedding Cards, Birthday & Event Cards",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1516321497487-e288fb19713f"
+  },
+  {
+    id: 4,
+    name: "Khandelwal Cards",
+    address: "Sarafa Bazar, Gwalior",
+    service: "Luxury Wedding Invitation Cards",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622"
+  },
+  {
+    id: 5,
+    name: "Jai Maa Cards",
+    address: "Near Phool Bagh, Gwalior",
+    service: "Traditional Wedding Cards",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1511578314322-379afb476865"
+  },
+  {
+    id: 6,
+    name: "Om Graphics",
+    address: "Gola Ka Mandir, Gwalior",
+    service: "Modern & Digital Invitation Designs",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1505236858219-8359eb29e329"
+  },
+  {
+    id: 7,
+    name: "Shadi Graphics",
+    address: "Thatipur, Gwalior",
+    service: "Wedding Invitation Specialists",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1520854221256-17451cc331bf"
+  },
+  {
+    id: 8,
+    name: "Ganpati Cards",
+    address: "DD Nagar, Gwalior",
+    service: "All Type Invitation Cards",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a"
+  },
+  {
+    id: 9,
+    name: "Ramesh Cards",
+    address: "City Centre, Gwalior",
+    service: "Budget & Premium Invitation Cards",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622"
+  },
+  {
+    id: 10,
+    name: "RK Cards",
+    address: "Maharaj Bada, Gwalior",
+    service: "Wedding & Corporate Invitations",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1511578314322-379afb476865"
+  },
+  {
+    id: 11,
+    name: "Deepak Cards",
+    address: "Roshni Ghar Road, Gwalior",
+    service: "Elegant Wedding Cards & Printing",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed"
+  },
+  {
+    id: 12,
+    name: "Kavita Cards",
+    address: "Old High Court Road, Gwalior",
+    service: "Custom Invitation Card Design",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a"
+  },
+  {
+    id: 13,
+    name: "Kwality Card House",
+    address: "Bhodapur, Gwalior",
+    service: "Premium Wedding Card Printing",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1516321497487-e288fb19713f"
+  },
+  {
+    id: 14,
+    name: "Guru Cards",
+    address: "Thatipur, Gwalior",
+    service: "All Occasion Invitation Cards",
+    badge: TRUSTED_BADGE,
+    img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622"
+  }
+];
+
+function addToCart(service) {
+  if (typeof addServiceToCart !== "function") {
+    console.error("addServiceToCart is not defined");
+    return;
+  }
+
+  addServiceToCart({
+    vendor: service.name,
+    category: 'Invitations',
+    price: service.price || 0,
+    displayPrice: service.displayPrice || service.price || 'Custom'
+  });
+}
+
+function handleBook(service) {
+  addToCart(service);
+  window.location.href = 'booking.html';
+}
+
+function showCartMessage(name) {
+  const existing = document.querySelector('.cart-toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = 'cart-toast';
+  toast.innerHTML = `Added <strong>${name}</strong> to cart. <a href="cart.html">View Cart</a>`;
+
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3500);
+}
+
+function renderCards() {
+  const box = document.getElementById('cards');
+  if (!box) return;
+
+  box.innerHTML = '';
+
+  invitations.forEach(service => {
+    const div = document.createElement('div');
+    div.className = 'card';
+
+    div.innerHTML = `
+      <div class="card-media">
+        <img src="${service.img || 'https://via.placeholder.com/300'}" alt="${service.name}">
+      </div>
+      <div class="card-body">
+        <h3>${service.name}</h3>
+        <p class="muted">Location: ${service.address || 'Not Available'}</p>
+        <p class="tag">Service: ${service.service}</p>
+        <p class="price">Price: ${service.displayPrice || service.price ? '₹' + service.price : 'Contact for price'}</p>
+        <p class="badge">${service.badge || ''}</p>
+        <div class="card-actions">
+          <button class="btn btn-add">Add to Cart</button>
+          <button class="btn btn-book">Book Now</button>
+        </div>
+      </div>`;
+
+    const addBtn = div.querySelector('.btn-add');
+    const bookBtn = div.querySelector('.btn-book');
+
+    addBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      addToCart(service);
+      showCartMessage(service.name);
+    });
+
+    bookBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      handleBook(service);
+    });
+
+    box.appendChild(div);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', renderCards);
+</script>
+</body>
+</html>

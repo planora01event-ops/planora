@@ -1,0 +1,204 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caterers</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vendors.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><img src="images/image.png" alt="Planora" class="logo-image"></div>
+        <div class="logo-text"><span class="logo-highlight">Planora</span></div>
+      </a>
+      <nav class="nav-links-pc">
+        <a href="index.html">Home</a>
+        <a href="index.html#categories">Venues</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-cart" href="cart.html">View Cart</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="title">  Anchors</h1>
+    <div class="container">
+      <div class="cards" id="cards"></div>
+    </div>
+  </main>
+
+  <script src="js/cart.js"></script>
+  <script>
+   const anchors = [
+  {
+    name: "Ranveer Event",
+    local: "Local Available",
+    type: "Normal",
+    badge: "🏆 Trusted Vendor",
+    img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Golden Events",
+    local: "Local Available",
+    type: "Normal",
+    badge: "🏆 Trusted Vendor",
+    img: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Geeta Events",
+    local: "Local Available",
+    type: "Normal",
+    badge: "🏆 Trusted Vendor",
+    img: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Anchor Komal",
+    local: "Outside Gwalior",
+    type: "Premium",
+    badge: "🏆 Trusted Vendor • Our Choice",
+    img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Anchor Sonam",
+    local: "Outside Gwalior",
+    type: "Premium",
+    badge: "🏆 Trusted Vendor • Our Choice",
+    img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Anchor Shubham",
+    local: "Outside Gwalior",
+    type: "Premium",
+    badge: "🏆 Trusted Vendor • Our Choice",
+    img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Dreamify Events",
+    local: "Local Available",
+    type: "Normal",
+    badge: "🏆 Trusted Vendor",
+    img: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Pulse Events",
+    local: "Local Available",
+    type: "Normal",
+    badge: "🏆 Trusted Vendor",
+    img: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Anchor Ankita",
+    local: "Local Available",
+    type: "Normal",
+    badge: "🏆 Trusted Vendor",
+    img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Anchor Varsha",
+    local: "Local Available",
+    type: "Normal",
+    badge: "🏆 Trusted Vendor",
+    img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Anchor Shivesh",
+    local: "Outside Gwalior",
+    type: "Normal",
+    badge: "🏆 Trusted Vendor",
+    img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Zero One Entertainment",
+    local: "Outside Gwalior",
+    type: "Premium",
+    badge: "🏆 Trusted Vendor • Our Choice",
+    img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "RD Entertainment",
+    local: "Local Available",
+    type: "Normal",
+    badge: "🏆 Trusted Vendor",
+    img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Anchor Deepti",
+    local: "Outside Gwalior",
+    type: "Premium",
+    badge: "🏆 Trusted Vendor • Our Choice",
+    img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Desire Creation Events",
+    local: "Local Available",
+    type: "Normal",
+    badge: "🏆 Trusted Vendor",
+    img: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80"
+  }
+];
+
+    const box = document.getElementById('cards');
+
+    function renderCards() {
+      box.innerHTML = '';
+      anchors.forEach(c => {
+        const div = document.createElement('div');
+        div.className = c.type === 'Premium' ? 'card premium' : 'card';
+        div.innerHTML = `
+          <div class="card-media"><img src="${c.img}" alt="${c.name}"></div>
+          <div class="card-body">
+            <h3>${c.name}</h3>
+            <p class="muted">📍 ${c.address}</p>
+            <p class="tag">⭐ ${c.type}</p>
+            <div class="card-actions">
+              <button class="btn btn-add">Add to Cart</button>
+              <button class="btn btn-book">Book Now</button>
+            </div>
+          </div>
+        `;
+
+        // Add behavior for Add / Book buttons
+        const addBtn = div.querySelector('.btn-add');
+        const bookBtn = div.querySelector('.btn-book');
+
+        addBtn.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          addServiceToCart({ vendor: c.name, category: 'Anchor', price: c.price, displayPrice: c.price });
+          showCartMessage(c.name);
+        });
+
+        bookBtn.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          addServiceToCart({ vendor: c.name, category: 'Anchor', price: c.price, displayPrice: c.price });
+          // navigate to booking page
+          window.location.href = 'booking.html';
+        });
+
+        box.appendChild(div);
+      });
+    }
+
+    renderCards();
+
+    function showCartMessage(name) {
+      const old = document.querySelector('.cart-toast');
+      if (old) old.remove();
+      const msg = document.createElement('div');
+      msg.className = 'cart-toast';
+      msg.innerHTML = `✅ <b>${name}</b><br>Added to cart &nbsp; <a href="cart.html">View Cart →</a>`;
+      document.body.appendChild(msg);
+      setTimeout(() => msg.remove(), 3500);
+    }
+  </script>
+
+  
+</body>
+</html>

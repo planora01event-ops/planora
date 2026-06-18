@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | Planora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+    <div class="navbar-content">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="images/image.png" alt="Planora Logo" class="logo-image">
+            </div>
+            <div class="logo-text">
+                <span class="logo-highlight">Planora</span>
+            </div>
+        </a>
+        <nav class="nav-links-pc">
+            <a href="index.html">Home</a>
+            <a href="cart.html">Cart</a>
+            <a href="booking.html">Booking</a>
+        </nav>
+    </div>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Cart</div>
+
+<section class="cart-page">
+    <div class="cart-panel">
+        <div class="cart-panel-header">
+            <h1>Your Event Package</h1>
+            <p id="cartSummaryText">Review your selected services and build the perfect event package.</p>
+        </div>
+
+        <div class="cart-table-wrap">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Vendor</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="cartTableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="cart-actions-row">
+            <button class="btn-secondary" onclick="clearCart()">Empty Cart</button>
+            <a class="btn-primary" href="booking.html">Continue Booking</a>
+        </div>
+    </div>
+
+    <aside class="cart-summary-card">
+        <div class="summary-card">
+            <h3>Cart Summary</h3>
+            <p><strong>Selected Event:</strong> <span id="selectedEventLabel"></span></p>
+            <p><strong>Total:</strong> <span id="cartTotalValue">₹0</span></p>
+        </div>
+        <div class="summary-card">
+            <h3>Need to Change a Service?</h3>
+            <p>Use the replace buttons to jump back to the correct vendor category, or update quantities directly.</p>
+        </div>
+    </aside>
+</section>
+
+<script src="js/cart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        renderCartPage();
+        const selectedEventLabel = document.getElementById('selectedEventLabel');
+        selectedEventLabel.textContent = getCurrentEvent() || 'Not selected yet';
+    });
+</script>
+</body>
+</html>

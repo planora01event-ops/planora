@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Birthday Party Venues | Planora Gwalior</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="navbar-content">
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="images/image.png" alt="Planora Logo" class="logo-image">
+            </div>
+            <div class="logo-text">
+                <span class="logo-highlight">Planora</span>
+            </div>
+        </a>
+        <nav class="nav-links-pc">
+            <a href="index.html">Home</a>
+            <a href="#venues">Venues</a>
+            <a href="#services">Services</a>
+            <a href="#booking">Book</a>
+        </nav>
+        <div class="lang-pc">
+            <button class="lang-btn active" id="btn-en-pc" onclick="translatePage('en')">EN</button>
+            <button class="lang-btn" id="btn-hi-pc" onclick="translatePage('hi')">HI</button>
+        </div>
+    </div>
+    <div class="side-nav" id="sideNav">
+        <div class="side-nav-header">
+            <span>Menu</span>
+            <span class="close-btn" onclick="toggleMenu()">&times;</span>
+        </div>
+        <div class="side-nav-links">
+            <a href="index.html" onclick="toggleMenu()">🏠 Home</a>
+            <a href="#venues" onclick="toggleMenu()">🏰 Venues</a>
+            <a href="#services" onclick="toggleMenu()">🌟 Services</a>
+            <a href="#booking" onclick="toggleMenu()">📞 Book</a>
+        </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero fade-in" style="background: url('https://images.unsplash.com/photo-1527529482837-4698179dc6ce') no-repeat center/cover;">
+    <div class="hero-content">
+        <h1>🎂 Celebrate Your Birthday in Style</h1>
+        <p>Fun venues perfect for memorable birthday celebrations</p>
+        <a href="#venues" class="hero-btn bounce">Explore Birthday Venues</a>
+    </div>
+</section>
+
+<!-- Venues Section -->
+<section class="venues-section" id="venues">
+    <h2>Birthday Venue Categories</h2>
+    <p class="section-subtitle">Choose from fun and festive venues for your celebration</p>
+
+    <div class="venue-grid">
+        <!-- Hotels -->
+        <a href="hotel.html" class="venue-type-card">
+    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" alt="Hotels">
+
+    <div class="venue-type-overlay">
+        <h3>5-Star Hotels</h3>
+        <p>Luxury accommodation with grand banquet halls</p>
+    </div>
+</a>
+        <!-- Gardens -->
+        <a href="garden.html" class="venue-type-card">
+    <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?w=400" alt="Gardens">
+
+    <div class="venue-type-overlay">
+        <h3>Garden Spaces</h3>
+        <p>Open air venues for outdoor parties</p>
+    </div>
+</a>
+
+        <!-- Cafes & Clubs -->
+        <a href="cafe and clubs.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=400" alt="Cafes">
+            <div class="venue-type-overlay">
+                <h3>Cafes & Clubs</h3>
+                <p>Trendy venues for youth birthday parties</p>
+            </div>
+        </a>
+
+        <!-- Guest Houses -->
+        <a href="guesthouse.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400" alt="Guest Houses">
+            <div class="venue-type-overlay">
+                <h3>Guest Houses</h3>
+                <p>Intimate venues for small birthday gatherings</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section" id="services">
+    <h2>Birthday Party Services & Vendors</h2>
+    <p class="section-subtitle">Make your birthday special with our services</p>
+    
+    <div class="services-grid">
+        <div class="service-item">
+            <div class="service-icon">🎉</div>
+            <h3>Party Decoration</h3>
+            <p>Colorful balloons, banners, and themed decor</p>
+        </div>
+
+        <div class="service-item">
+            <div class="service-icon">🍰</div>
+            <h3>Cake & Snacks</h3>
+            <p>Custom cakes and party snacks</p>
+        </div>
+
+        <div class="service-item">
+            <div class="service-icon">🎧</div>
+            <h3>DJ & Music</h3>
+            <p>Professional DJ for dance floor entertainment</p>
+        </div>
+
+        <div class="service-item">
+            <div class="service-icon">📸</div>
+            <h3>Photography</h3>
+            <p>Professional photographers to capture memories</p>
+        </div>
+
+        <div class="service-item">
+            <div class="service-icon">🎮</div>
+            <h3>Games & Entertainment</h3>
+            <p>Interactive games and fun activities</p>
+        </div>
+
+        <div class="service-item">
+            <div class="service-icon">🍕</div>
+            <h3>Catering</h3>
+            <p>Variety of food options and beverages</p>
+        </div>
+
+        <div class="service-item">
+            <div class="service-icon">🎈</div>
+            <h3>Balloon Arrangements</h3>
+            <p>Customized balloon décor and installations</p>
+        </div>
+
+        <div class="service-item">
+            <div class="service-icon">🎤</div>
+            <h3>Karaoke Setup</h3>
+            <p>Professional karaoke system rental</p>
+        </div>
+
+        <div class="service-item">
+            <div class="service-icon">📹</div>
+            <h3>Videography</h3>
+            <p>Professional video coverage of your party</p>
+        </div>
+
+        <div class="service-item">
+            <div class="service-icon">💄</div>
+            <h3>Makeup & Hair</h3>
+            <p>Professional makeup services for guests</p>
+        </div>
+
+        <div class="service-item">
+            <div class="service-icon">🎨</div>
+            <h3>Face Painting</h3>
+            <p>Fun face painting for kids</p>
+        </div>
+
+        <div class="service-item">
+            <div class="service-icon">🧸</div>
+            <h3>Kids Activities</h3>
+            <p>Games, bouncy castles, and fun activities</p>
+        </div>
+    </div>
+</section>
+
+<script src="script.js"></script>
+
+<!-- Footer -->
+<footer style="padding: 30px 20px; background: #130923; color: white; text-align: center; margin-top: 60px;">
+    <p>&copy; 2026 Planora | Event Planning in Gwalior</p>
+    <p style="font-size: 0.9rem; margin-top: 10px;">Select your services and proceed to cart for booking</p>
+</footer>
+
+</body>
+
+</html>
+

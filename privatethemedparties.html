@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Private Themed Parties | Planora Gwalior</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="navbar-content">
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="images/image.png" alt="Planora Logo" class="logo-image">
+            </div>
+            <div class="logo-text">
+                <span class="logo-highlight">Planora</span>
+            </div>
+        </a>
+        <nav class="nav-links-pc">
+            <a href="index.html">Home</a>
+            <a href="#vendors">Vendors</a>
+            <a href="#services">Why Planora</a>
+            <a href="#booking">Book</a>
+        </nav>
+        <div class="lang-pc">
+            <button class="lang-btn active" id="btn-en-pc" onclick="translatePage('en')">EN</button>
+            <button class="lang-btn" id="btn-hi-pc" onclick="translatePage('hi')">HI</button>
+        </div>
+    </div>
+    <div class="side-nav" id="sideNav">
+        <div class="side-nav-header">
+            <span>Menu</span>
+            <span class="close-btn" onclick="toggleMenu()">&times;</span>
+        </div>
+        <div class="side-nav-links">
+            <a href="index.html" onclick="toggleMenu()">🏠 Home</a>
+            <a href="#vendors" onclick="toggleMenu()">🏰 Vendors</a>
+            <a href="#services" onclick="toggleMenu()">🌟 Why Planora</a>
+            <a href="#booking" onclick="toggleMenu()">📞 Book</a>
+        </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Private Themed Parties</div>
+
+<section class="hero fade-in" style="background: url('https://images.unsplash.com/photo-1518609878373-06d740f60d8b') no-repeat center/cover;">
+    <div class="hero-content">
+        <h1>🎭 Private Themed Parties</h1>
+        <p>Bring your party theme to life with premium vendors.</p>
+        <a href="#vendors" class="hero-btn bounce">View Vendors</a>
+    </div>
+</section>
+
+<section class="venues-section" id="vendors">
+    <h2>Vendor Categories</h2>
+    <p class="section-subtitle">Everything needed for a private theme celebration</p>
+    <div class="venue-grid">
+        <a href="decoration.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400" alt="Decoration">
+            <div class="venue-type-overlay">
+                <h3>Decoration</h3>
+                <p>Custom theme décor and stage styling.</p>
+            </div>
+        </a>
+        <a href="dj sound.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400" alt="DJ Sound">
+            <div class="venue-type-overlay">
+                <h3>DJ Sound</h3>
+                <p>Music and lighting for your private party.</p>
+            </div>
+        </a>
+        <a href="hotel.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" alt="Hotels">
+            <div class="venue-type-overlay">
+                <h3>Hotels</h3>
+                <p>Indoor venues for elegant private parties.</p>
+            </div>
+        </a>
+        <a href="garden.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?w=400" alt="Gardens">
+            <div class="venue-type-overlay">
+                <h3>Gardens</h3>
+                <p>Open-air spaces for themed celebrations.</p>
+            </div>
+        </a>
+        <a href="catrers.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=400" alt="Catering">
+            <div class="venue-type-overlay">
+                <h3>Catering</h3>
+                <p>Your theme, your menu — curated catering plans.</p>
+            </div>
+        </a>
+        <a href="photographers.html" class="venue-type-card">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400" alt="Photography">
+            <div class="venue-type-overlay">
+                <h3>Photography</h3>
+                <p>Capture your themed moments with expert photography.</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+<section class="services-section" id="services">
+    <h2>Why Choose Planora?</h2>
+    <p class="section-subtitle">Exclusive vendor support for private themed celebrations.</p>
+    <div class="services-grid">
+        <div class="service-item">
+            <div class="service-icon">🎨</div>
+            <h3>Theme Planning</h3>
+            <p>Design support for every party concept.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">🛠️</div>
+            <h3>Vendor Match</h3>
+            <p>Handpicked partners ready to execute your theme.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">📦</div>
+            <h3>Complete Setup</h3>
+            <p>End-to-end booking and venue coordination.</p>
+        </div>
+        <div class="service-item">
+            <div class="service-icon">🌟</div>
+            <h3>Premium Quality</h3>
+            <p>Top-rated vendors with event experience.</p>
+        </div>
+    </div>
+</section>
+
+<section id="booking" class="booking-section fade-in" style="padding: 60px 20px; background: #fff; border-radius: 30px; margin: 40px auto; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); font-family: 'Poppins', sans-serif;">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="font-size: 2rem; color: #222; margin-bottom: 10px;">Book Your Party Venue 🎉</h2>
+        <p style="color: #666;">Reach out and we’ll recommend the right vendors for your themed celebration.</p>
+    </div>
+    <a href="index.html#booking" class="hero-btn bounce" style="padding: 15px 30px;">Open Booking Form</a>
+</section>
+
+<script src="script.js"></script>
+</body>
+
+</html>
+

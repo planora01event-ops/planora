@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking | Planora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+    <div class="navbar-content">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="images/image.png" alt="Planora Logo" class="logo-image">
+            </div>
+            <div class="logo-text">
+                <span class="logo-highlight">Planora</span>
+            </div>
+        </a>
+        <nav class="nav-links-pc">
+            <a href="index.html">Home</a>
+            <a href="cart.html">Cart</a>
+            <a href="booking.html">Booking</a>
+        </nav>
+        <div class="lang-pc">
+            <button class="lang-btn active" id="btn-en-pc" onclick="translatePage('en')">EN</button>
+            <button class="lang-btn" id="btn-hi-pc" onclick="translatePage('hi')">HI</button>
+        </div>
+    </div>
+</header>
+
+<div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Booking</div>
+
+<section class="booking-page">
+    <div class="booking-form-card">
+        <h1>Complete Booking</h1>
+        <div id="integrationNotice" style="margin-top:8px;padding:8px;border-radius:4px;display:none;font-size:14px;"></div>
+        <p>Fill in your details and finish your event request.</p>
+        <form id="bookingForm">
+            <div class="form-grid">
+                <label>Customer Name<input type="text" id="custName" required></label>
+                <label>Mobile Number<input type="tel" id="custPhone" required></label>
+                <label>WhatsApp Number<input type="tel" id="custWhatsApp" required></label>
+                <label>Email (optional)<input type="email" id="custEmail"></label>
+                <label>Event Date<input type="date" id="custDate" required></label>
+                <label>Guest Quantity<input type="number" id="custGuests" min="1" required></label>
+                <label>City<input type="text" id="custCity" required></label>
+                <label>Address<textarea id="custAddress" rows="4" required></textarea></label>
+                <label>Special Instructions<textarea id="custNotes" rows="4"></textarea></label>
+                <label>How would you rate our service?
+                    <select id="custRating" required>
+                        <option value="">Select rating</option>
+                        <option value="5">5 - Excellent</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="3">3 - Good</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="1">1 - Needs Improvement</option>
+                    </select>
+                </label>
+                <label>Additional Comments<textarea id="custFeedback" rows="4" placeholder="Any requests, notes, or feedback"></textarea></label>
+            </div>
+            <div class="booking-actions">
+                <button type="button" class="btn-secondary" onclick="window.location.href='cart.html'">Modify Booking</button>
+                <button type="button" class="btn-primary" onclick="confirmBooking()">Confirm Booking</button>
+            </div>
+        </form>
+    </div>
+
+    <aside class="booking-summary-card">
+        <div class="summary-card" id="bookingSummary"></div>
+        <div class="summary-card">
+            <h3>Estimated Total</h3>
+            <p id="estimatedTotal">₹0</p>
+        </div>
+    </aside>
+</section>
+
+<script src="js/cart.js"></script>
+<script src="script.js"></script>
+<div id="google_translate_element" style="display:none"></div>
+
+</body>
+</html>

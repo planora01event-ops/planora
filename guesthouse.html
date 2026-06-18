@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guesthouses | My Utsav</title>
+
+<div class="search-container">
+    <input type="text" id="guestSearch" placeholder="Search for a guesthouse (e.g. Maruti, SaiNath)..." onkeyup="searchGuesthouses()">
+</div>
+
+<script>
+function searchGuesthouses() {
+    let input = document.getElementById('guestSearch').value.toLowerCase();
+    let cards = document.getElementsByClassName('guest-card');
+
+    for (let i = 0; i < cards.length; i++) {
+        // Name uthao
+        let name = cards[i].querySelector('.guest-name').innerText.toLowerCase();
+        // Location uthao
+        let location = cards[i].querySelector('.location-text').innerText.toLowerCase();
+
+        // Dono mein se kisi mein bhi agar word mil gaya
+        if (name.includes(input) || location.includes(input)) {
+            cards[i].style.display = "block"; // Card dikhao
+        } else {
+            cards[i].style.display = "none";  // Card chhupa do
+        }
+    }
+}
+
+
+
+function selectVenue(venueName) {
+
+    console.log("Saving Venue:", venueName);
+
+    // Save venue for any booking flow if needed
+    localStorage.setItem("selectedVenue", venueName);
+
+    // Add venue to cart
+    addServiceToCart({ vendor: venueName, category: 'Guesthouses', price: 0, displayPrice: venueName });
+    showToast(`Added to cart: ${venueName}`);
+    showConfirmationModal(venueName);
+}
+
+function showConfirmationModal(venueName) {
+    const modal = document.getElementById('confirmationModal');
+    if (!modal) return;
+    const messageEl = document.getElementById('confirmationText');
+    if (messageEl) {
+        messageEl.textContent = `${venueName} has been added to your cart.`;
+    }
+    modal.style.display = 'block';
+}
+
+function closeConfirmationModal() {
+    const modal = document.getElementById('confirmationModal');
+    if (modal) modal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('confirmationModal');
+    if (event.target === modal) {
+        closeConfirmationModal();
+    }
+};
+</script>
+
+<style>
+
+/* ===============================
+   BUTTON CONTAINER
+================================= */
+/* BUTTON CONTAINER */
+.hotel-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* left align buttons */
+    gap: 20px;
+    margin: 25px 0;
+}
+
+/* Confirmation Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    margin: auto;
+    padding: 25px 30px;
+    border-radius: 18px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    position: relative;
+}
+
+.confirmation-message {
+    font-size: 1rem;
+    color: #333;
+    margin: 18px 0 24px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.modal-actions button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.modal-actions .btn-continue {
+    background: #6c757d;
+    color: white;
+}
+
+.modal-actions .btn-continue:hover {
+    background: #5a6268;
+}
+
+.modal-actions .btn-cart {
+    background: linear-gradient(135deg, #ff6b6b, #ff8787);
+    color: white;
+}
+
+.modal-actions .btn-cart:hover {
+    background: linear-gradient(135deg, #ff8787, #ff6b6b);
+}
+
+.close-modal {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    font-size: 26px;
+    color: #444;
+    cursor: pointer;
+}
+
+/* ===============================
+   BUTTON CONTAINER
+================================= */
+
+/* BUTTON CONTAINER */
+.hotel-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* left align buttons */
+    gap: 20px;
+    margin: 25px 0;
+}
+
+/* BASE BUTTON STYLE */
+.hotel-buttons button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 32px;
+    min-width: 160px; /* minimum width */
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.35s ease;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+/* VIEW LOCATION BUTTON */
+.view-btn {
+    background: linear-gradient(135deg, #1a3a52, #2d5a7a);
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.view-btn::before {
+    content: "";
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    top: -10%;
+    left: -110%;
+    background: rgba(255,255,255,0.15);
+    transform: skewX(-25deg);
+    transition: all 0.6s ease;
+}
+
+.view-btn:hover::before {
+    left: 120%;
+}
+
+.view-btn:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 12px 28px rgba(26,58,82,0.6);
+}
+
+/* WHATSAPP BOOKING BUTTON */
+.book-btn {
+    background: linear-gradient(135deg, #25D366, #1ebe5d);
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    animation: pulse 2.5s infinite;
+}
+
+.book-btn:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 12px 28px rgba(37,211,102,0.7);
+}
+
+/* PULSE ANIMATION */
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.4); }
+    50% { box-shadow: 0 0 20px 10px rgba(37,211,102,0.6); }
+}
+
+/* RIPPLE EFFECT ON CLICK */
+.hotel-buttons button:active::after {
+    content: "";
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+    to { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+/* ===============================
+   HEADER H1 - Sharp Neon Gradient
+================================= */
+header h1 {
+    font-size: 48px;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    margin-bottom: 40px;
+
+    /* Gradient Text */
+    background: linear-gradient(45deg, #fdd835, #ff6f61, #fbc02d, #1e90ff, #9b59b6, #00ff99);
+    background-size: 400% 400%;
+    
+    color: #0b0303; /* keep text visible and crisp */
+
+    /* Crisp Glow */
+    text-shadow:
+        0 0 2px #830f8e,
+        0 0 5px #fdd835,
+        0 0 8px #ff6f61,
+        0 0 12px #1e90ff;
+
+    animation: gradientMove 6s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Gradient animation keyframes */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+/* ===============================
+   BODY STYLING
+================================= */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f9;
+    padding: 40px;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ===============================
+   MAIN PAGE TITLE
+================================= */
+.guest-list-section h1:first-of-type {
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 30px;
+    color: #222;
+}
+
+/* ===============================
+   SECTION HEADINGS
+================================= */
+.guest-list-section h2 {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    font-size: 26px;
+    padding-left: 12px;
+    border-left: 6px solid #e63946;
+    color: #444;
+}
+
+/* ===============================
+   GUEST HOUSE NAME
+================================= */
+.guest-list-section h1:not(:first-of-type) {
+    font-size: 22px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+/* ===============================
+   IMAGES
+================================= */
+img {
+    width: 30%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.05);
+}
+/* ===============================
+   VENUE DETAILS
+================================= */
+.guest-list-section p {
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+/* ===============================
+   CARD EFFECT
+================================= */
+.guest-list-section h1:not(:first-of-type) {
+    background: white;
+    padding: 20px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* ===============================
+   DETAILS BOX
+================================= */
+.guest-list-section h2 + p {
+    background: white;
+    padding: 20px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* ===============================
+   RESPONSIVE
+================================= */
+@media (max-width: 768px) {
+
+    .guest-images {
+        grid-template-columns: 1fr;
+    }
+
+    .guest-images img {
+        width: 100%;
+    }
+
+    body {
+        padding: 20px;
+    }
+}
+
+/* SEARCH BOX STYLING */
+.search-container {
+    text-align: center;
+    margin: 30px auto 50px;
+    max-width: 600px;
+    padding: 0 20px;
+}
+
+#guestSearch {
+    width: 100%;
+    padding: 16px 28px;
+    font-size: 18px;
+    border-radius: 50px;
+    border: 3px solid #1a3a52;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    outline: none;
+    transition: all 0.4s ease;
+}
+
+#guestSearch:focus {
+    border-color: #ff6f61;
+    box-shadow: 0 15px 30px rgba(255, 111, 97, 0.3);
+}
+
+/* GUESTHOUSE CARD STYLING */
+.guest-card {
+    background: #ffffff;
+    margin-bottom: 40px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-top: 6px solid #e63946;
+}
+
+.guest-name {
+    font-size: 28px;
+    color: #1a3a52;
+    margin-bottom: 10px;
+    font-weight: 900;
+}
+
+.location-text {
+    color: #555;
+    font-weight: 500;
+}
+
+.guest-images {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+/* Image styling for both inside and outside the div */
+.guest-card img {
+    width: 31%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s;
+}
+
+.guest-card img:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .guest-card img { width: 100%; margin-bottom: 10px; }
+}
+</style>
+
+</head>
+
+<header>
+<h1>Guesthouses in Gwalior</h1>
+</header>
+
+
+<body>
+<div id="guesthouseList">
+
+    <div class="guest-card">
+        <h1 class="guest-name">Chaitanya Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Chaitanya1.png">
+            <img src="guesthouse\Chaitanya2.png">
+            <img src="guesthouse\Chaitanya3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Chaitanya+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+           <button class="book-btn" 
+onclick="selectVenue('Chaitanya Guesthouse')">
+💬 Book Now
+</button> 
+</div>
+
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Maruti Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Maruti1.png">
+            <img src="guesthouse\Maruti2.png">
+            <img src="guesthouse\Maruti3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Maruti+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Maruti Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">SaiNath Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\SaiNath1.png">
+            <img src="guesthouse\SaiNath2.png">
+            <img src="guesthouse\SaiNath3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=SaiNath+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('SaiNath Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Gulmohar Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Gulmohar1.png">
+            <img src="guesthouse\Gulmohar2.png">
+            <img src="guesthouse\Gulmohar3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Gulmohar+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Gulmohar Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">BSSN Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\BSSN1.png">
+            <img src="guesthouse\BSSN2.png">
+            <img src="guesthouse\BSSN3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=BSSN+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('BSSN Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="guest-card">
+        <h1 class="guest-name">Girnar Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Girnar1.png">
+            <img src="guesthouse\Girnar2.png">
+            <img src="guesthouse\Girnar3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Sanmad+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Girnar Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Sanmad Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Sanmad1.png">
+            <img src="guesthouse\Sanmad2.png">
+            <img src="guesthouse\Sanmad3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Sanmad+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Sanmad Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Siddhi Vinayak Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\SiddhiVinayak1.png">
+            <img src="guesthouse\SiddhiVinayak2.png">
+            <img src="guesthouse\SiddhiVinayak3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Siddhi+Vinayak+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Siddhi Vinayak Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Bajrang Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Bajrang1.png">
+            <img src="guesthouse\Bajrang2.png">
+            <img src="guesthouse\Bajrang3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Bajrang+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Bajrang Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Vaishno Dham Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\VaishnoDham1.png">
+            <img src="guesthouse\VaishnoDham2.png">
+            <img src="guesthouse\VaishnoDham3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Vaishno+Dham+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Vaishno Dham Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+<div class="guest-card">
+        <h1 class="guest-name">Sanskar Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Sanskar1.png">
+            <img src="guesthouse\Sanskar2.png">
+            <img src="guesthouse\Sanskar3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Bajrang+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Sanskar Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Satkar Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Satkar1.png">
+            <img src="guesthouse\Satkar2.png">
+            <img src="guesthouse\Satkar3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=satkar+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Satkar Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Mangalam Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Mangalam1.png">
+            <img src="guesthouse\Mangalam2.png">
+            <img src="guesthouse\Mangalam3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Mangalam+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Mangalam Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Shree Ram Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Shree1.png">
+            <img src="guesthouse\Shree2.png">
+            <img src="guesthouse\Shree3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Shree+Ram+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Shree Ram Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Krishnam Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Krishnam1.png">
+            <img src="guesthouse\Krishnam2.png">
+            <img src="guesthouse\Krishnam3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Krishnam+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Krishnam Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+
+<div class="guest-card">
+        <h1 class="guest-name">TWB Palace Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\TWBPalace1.png">
+            <img src="guesthouse\TWBPalace2.png">
+            <img src="guesthouse\TWBPalace3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=TWB+Palace+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('TWB Palace Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Shubham Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Shubham1.png">
+            <img src="guesthouse\Shubham2.png">
+            <img src="guesthouse\Shubham3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Shubham+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Shubham Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Karana Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Karana1.png">
+            <img src="guesthouse\Karana2.png">
+            <img src="guesthouse\Karana3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Karana+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Karana Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">RamKripa Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\RamKripa1.png">
+            <img src="guesthouse\RamKripa2.png">
+            <img src="guesthouse\RamKripa3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=RamKripa+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('RamKripa Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Kundan Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Kundan1.png">
+            <img src="guesthouse\Kundan2.png">
+            <img src="guesthouse\Kundan3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Kundan+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Kundan Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+<div class="guest-card">
+        <h1 class="guest-name">Tirupati Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Tirupati1.png">
+            <img src="guesthouse\Tirupati2.png">
+            <img src="guesthouse\Tirupati3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=tirupati+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Tirupati Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Parkland Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Parkland1.png">
+            <img src="guesthouse\Parkland2.png">
+            <img src="guesthouse\Parkland3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Parkland+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Parkland Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Kasturi Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Kasturi1.png">
+            <img src="guesthouse\Kasturi2.png">
+            <img src="guesthouse\Kasturi3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Kasturi+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Kasturi Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Arihant Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Arihant1.png">
+            <img src="guesthouse\Arihant2.png">
+            <img src="guesthouse\Arihant3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Arihant+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Arihant Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Ashirwad Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Ashirwad1.png">
+            <img src="guesthouse\Ashirwad2.png">
+            <img src="guesthouse\Ashirwad3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Ashirwad+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Ashirwad Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+
+<div class="guest-card">
+        <h1 class="guest-name">Amrit Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Amrit1.png">
+            <img src="guesthouse\Amrit2.png">
+            <img src="guesthouse\Amrit3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Amrit+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Amrit Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Parmar Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Parmar1.png">
+            <img src="guesthouse\Parmar2.png">
+            <img src="guesthouse\Parmar3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Parmar+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Parmar Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Seva Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Seva1.png">
+            <img src="guesthouse\Seva2.png">
+            <img src="guesthouse\Seva3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Seva+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Seva Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Sukrat Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Sukrat1.png">
+            <img src="guesthouse\Sukrat2.png">
+            <img src="guesthouse\Sukrat3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Kunda+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Sukrat Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Siddhi Vinayak Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Siddhi1.png">
+            <img src="guesthouse\Siddhi2.png">
+            <img src="guesthouse\Siddhi3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Siddhi+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Siddhi Vinayak Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+    <div class="guest-card">
+        <h1 class="guest-name">Radha Rani Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\RadhaRani1.png">
+            <img src="guesthouse\RadhaRani2.png">
+            <img src="guesthouse\RadhaRani3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Radha+Rani+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Radha Rani Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Balaji Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Balaji1.png">
+            <img src="guesthouse\Balaji2.png">
+            <img src="guesthouse\Balaji3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Balaji+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Balaji Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+    <div class="guest-card">
+        <h1 class="guest-name">Kamla Guesthouse</h1>
+        <div class="guest-images">
+            <img src="guesthouse\Kamla1.png">
+            <img src="guesthouse\Kamla2.png">
+            <img src="guesthouse\Kamla3.png">
+        </div>
+        <h2>Venue Details</h2>
+        <p><strong>Location:</strong> <span class="location-text">Shivpuri link road, Gwalior, Madhya Pradesh</span></p>
+        <p><strong>Rating:</strong> 4.0/5</p>
+        <p><strong>Capacity:</strong> 300 – 1200 Guests</p>
+        <div class="hotel-buttons">
+            <a href="https://maps.google.com/?q=Kamla+Guesthouse+Gwalior" target="_blank"><button class="view-btn">📍 View Location</button></a>
+            <button class="book-btn" onclick="selectVenue('Kamla Guesthouse')">💬 Book Now</button>
+        </div>
+    </div>
+
+</div>
+<script src="js/cart.js"></script>
+
+<div id="confirmationModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeConfirmationModal()">&times;</span>
+        <h2>Added to Cart</h2>
+        <p id="confirmationText" class="confirmation-message">The selected guesthouse has been added to your cart.</p>
+        <div class="modal-actions">
+            <button class="btn-continue" onclick="closeConfirmationModal()">Continue</button>
+            <button class="btn-cart" onclick="window.location.href='cart.html'">Go to Cart</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
